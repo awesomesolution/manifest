@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#a93d5d">
+    <meta name="description" content="Manifest with Jaya — personalised coaching, mindset practices, and energy healing to help you create the life you truly desire.">
+    <title>Manifest with Jaya | Create the Life You Truly Desire</title>
+
+    <!--
+    DESIGN REFERENCE / COMPONENT MAP
+    Reference canvas: 1024 × 1536 px. Measurements below refer to that canvas.
+    Components: Header, Hero, Transformation Cards, Program Cards, Community CTA,
+    About, Statistics, Testimonial Carousel, Closing CTA, Footer, Booking Form,
+    Program Details, Animated Introduction, Journal.
+
+    RASTER-SAMPLED PALETTE (approximate; photography contains additional colors)
+    Primary rose: #A93D5D       Primary hover: #8E2D4C
+    Secondary burgundy: #3D1520 Accent gold: #C39A56
+    Rose icon: #BF6480          Body text: #242021
+    Muted text: #6F6266         Cream: #FCF7F2
+    Blush: #FCF3F0             White: #FFFFFF
+    Borders: #F0E6DF           Shadows: rgba(61,21,32,.08)
+
+    TYPOGRAPHY
+    Display: Playfair Display, 45px / .97, 500, tracking -1.15px.
+    Section headings: Cormorant Garamond, 18px / 22px, 600, tracking .65px.
+    Script accents: Allura, 22–28px, 400.
+    Body: DM Sans, 10.75px / 16px, 400.
+    Navigation: DM Sans, 9.6px, 500, uppercase.
+    Card headings: DM Sans, 10.5–11px / 15px, 600.
+    Buttons: DM Sans, 11px, 600, uppercase.
+    Desktop measurements scale proportionally up to a 1440px canvas.
+    Tablet/mobile use independent, readable typography and reflowed components.
+
+    REFERENCE GEOMETRY
+    Main horizontal gutter: 46px. Hero: 451px, with portrait extending to 484px.
+    Transformation grid: 88.7% width, six cards, 12px gaps, 153px card height.
+    Programs: 86.7% width, five cards, 18px gaps, 195px card height.
+    Community: 95.3% width, 180px height, 20px horizontal padding.
+    About: 86.8% width, 173px image height.
+    Testimonials: 131px section, 100px cards. Closing CTA: 81px.
+    Photographic assets and brand marks are individually cropped from the supplied
+    reference asset. All headings, descriptions, controls, and layouts are live HTML.
+    Replace the reusable .asset-crop elements with exported original photographs
+    when individual, higher-resolution brand assets are available.
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ================================================================
+           01. Design tokens, reset, and reusable primitives
+           ================================================================ */
+        :root {
+            --primary: #a93d5d;
+            --primary-dark: #8e2d4c;
+            --burgundy: #3d1520;
+            --gold: #c39a56;
+            --rose: #bf6480;
+            --text: #242021;
+            --muted: #6f6266;
+            --cream: #fcf7f2;
+            --blush: #fcf3f0;
+            --border: #f0e6df;
+            --white: #fff;
+            --shadow: 0 9px 26px rgba(61, 21, 32, .08);
+            --font-body: "DM Sans", Arial, sans-serif;
+            --font-display: "Playfair Display", Georgia, serif;
+            --font-heading: "Cormorant Garamond", Georgia, serif;
+            --font-script: "Allura", cursive;
+            --u: clamp(.96px, .09765625vw, 1.40625px);
+            --bs-primary: #a93d5d;
+            --bs-body-font-family: var(--font-body);
+            --bs-body-color: var(--text);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+        body {
+            margin: 0;
+            background: #fff;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: calc(10.75 * var(--u));
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        button, input, select, textarea { font: inherit; }
+        button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+        button { touch-action: manipulation; }
+        img { max-width: 100%; }
+        svg { vertical-align: middle; }
+        h1, h2, h3, p { margin-top: 0; }
+        button:focus-visible, a:focus-visible, input:focus-visible,
+        select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 4px;
+        }
+        ::selection { background: #edccda; color: var(--burgundy); }
+        [hidden] { display: none !important; }
+        .site-wrap { width: 100%; max-width: 1440px; margin: 0 auto; overflow: clip; }
+        .reference-container { width: 91%; margin-inline: auto; }
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            flex: 0 0 auto;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .skip-link {
+            position: fixed;
+            z-index: 2000;
+            top: -80px;
+            left: 16px;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .skip-link:focus { top: 12px; }
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: calc(9 * var(--u));
+            min-height: calc(34 * var(--u));
+            padding: calc(8 * var(--u)) calc(14 * var(--u));
+            border: 1px solid transparent;
+            border-radius: calc(4 * var(--u));
+            font-size: calc(11 * var(--u));
+            font-weight: 600;
+            line-height: 1.3;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s, box-shadow .2s, transform .2s;
+        }
+        .button .icon { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+        .button-primary {
+            color: #fff;
+            background: linear-gradient(110deg, #aa3c5b, #b34365);
+            border-color: #ad4260;
+        }
+        .button-primary:hover {
+            color: #fff;
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 5px 14px rgba(169, 61, 93, .18);
+            transform: translateY(-2px);
+        }
+        .button-outline {
+            border-color: #d9c7c5;
+            color: #222;
+            background: rgba(255, 255, 255, .36);
+        }
+        .button-outline:hover { background: #fff; border-color: var(--primary); color: var(--primary); }
+        .button-white { background: #fffaf4; color: var(--primary); border-color: #f1ded3; }
+        .button-white:hover { background: #fff; color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .button:active { transform: translateY(0) scale(.98); }
+        .button:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+        .section-heading { text-align: center; position: relative; z-index: 2; }
+        .section-heading h2 {
+            margin: 0;
+            color: var(--burgundy);
+            font-family: var(--font-heading);
+            font-size: calc(18 * var(--u));
+            font-weight: 600;
+            line-height: calc(22 * var(--u));
+            letter-spacing: calc(.65 * var(--u));
+            text-transform: uppercase;
+        }
+        .section-ornament {
+            display: flex;
+            height: calc(10 * var(--u));
+            align-items: center;
+            justify-content: center;
+            gap: calc(3 * var(--u));
+            color: var(--gold);
+        }
+        .section-ornament::before, .section-ornament::after {
+            content: "";
+            width: calc(22 * var(--u));
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .section-ornament::after { transform: rotate(180deg); }
+        .section-ornament .icon { width: calc(15 * var(--u)); height: calc(11 * var(--u)); stroke-width: 1.4; }
+
+        /* Reusable image component: --x/--y/--w/--h are source-pixel crop bounds. */
+        .asset-crop {
+            position: relative;
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            aspect-ratio: var(--w) / var(--h);
+            isolation: isolate;
+        }
+        .asset-crop > img {
+            position: absolute;
+            display: block;
+            width: calc(1024 / var(--w) * 100%);
+            max-width: none;
+            height: auto;
+            left: calc(var(--x) / var(--w) * -100%);
+            top: calc(var(--y) / var(--h) * -100%);
+        }
+
+        /* ================================================================
+           02. Header and navigation
+           ================================================================ */
+        .hero { position: relative; height: calc(451 * var(--u)); background: linear-gradient(105deg, #fcf7f2 30%, #fff9f3 63%, #fbeade); }
+        .site-header { position: absolute; z-index: 20; top: 0; inset-inline: 0; padding: 0; }
+        .header-inner { display: flex; align-items: flex-start; position: relative; }
+        .brand {
+            display: block;
+            flex: 0 0 calc(155 * var(--u));
+            width: calc(155 * var(--u));
+            margin-top: calc(8 * var(--u));
+        }
+        .main-navigation { flex: 1; margin: calc(14 * var(--u)) calc(39 * var(--u)) 0 calc(79 * var(--u)); }
+        .nav-content { display: flex; align-items: center; width: 100%; }
+        .nav-list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            gap: calc(27 * var(--u));
+        }
+        .nav-link-custom {
+            display: inline-block;
+            position: relative;
+            padding: calc(9 * var(--u)) 0;
+            font-size: calc(9.6 * var(--u));
+            font-weight: 500;
+            line-height: 1;
+            white-space: nowrap;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            background: var(--primary);
+            bottom: calc(3 * var(--u));
+            left: 0;
+            right: 0;
+            transform: scaleX(0);
+            transition: transform .2s;
+        }
+        .nav-link-custom:hover, .nav-link-custom.active { color: var(--primary); }
+        .nav-link-custom:hover::after { transform: scaleX(1); }
+        .nav-book {
+            flex: 0 0 calc(130 * var(--u));
+            width: calc(130 * var(--u));
+            min-height: calc(47 * var(--u));
+            margin-left: calc(33 * var(--u));
+            font-size: calc(12.4 * var(--u));
+            line-height: 1.45;
+            padding: calc(6 * var(--u)) calc(9 * var(--u));
+            border-radius: calc(6 * var(--u));
+        }
+        .navbar-toggler { display: none; border: 1px solid #dfc8ce; color: var(--primary); width: 44px; height: 44px; padding: 9px; box-shadow: none !important; }
+        .navbar-toggler .icon { width: 24px; height: 24px; }
+
+        /* ================================================================
+           03. Hero
+           ================================================================ */
+        .hero-visual {
+            position: absolute;
+            top: calc(53 * var(--u));
+            right: 0;
+            width: 55.078125%;
+            z-index: 0;
+            /* Excludes a small sliver of the reference's navigation button. */
+            clip-path: polygon(0 0, 61.7% 0, 61.7% 2.6%, 85% 2.6%, 85% 0, 100% 0, 100% 100%, 0 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 6%);
+            mask-image: linear-gradient(to right, transparent, #000 6%);
+        }
+        .hero-copy { position: relative; z-index: 2; width: calc(432 * var(--u)); padding-top: calc(156 * var(--u)); margin-left: 4.5%; }
+        .hero-title {
+            margin: 0;
+            color: #310911;
+            font-family: var(--font-display);
+            font-size: calc(45 * var(--u));
+            font-weight: 500;
+            line-height: .97;
+            letter-spacing: calc(-1.15 * var(--u));
+        }
+        .hero-title > span { display: block; color: #a72f53; white-space: nowrap; }
+        .hero-title .title-heart {
+            width: calc(35 * var(--u));
+            height: calc(35 * var(--u));
+            margin-left: calc(9 * var(--u));
+            color: var(--gold);
+            stroke-width: 1.6;
+            transform: rotate(13deg);
+            vertical-align: baseline;
+        }
+        .hero-lead {
+            margin: calc(11 * var(--u)) 0 calc(7 * var(--u));
+            font-size: calc(13 * var(--u));
+            font-weight: 600;
+            line-height: calc(22 * var(--u));
+            color: var(--burgundy);
+            white-space: nowrap;
+        }
+        .script-text { color: var(--rose); font-family: var(--font-script); font-weight: 400; }
+        .hero-lead .script-text { font-size: calc(22 * var(--u)); margin-left: calc(3 * var(--u)); }
+        .hero-description { width: calc(322 * var(--u)); max-width: 100%; margin: 0; font-size: calc(10.75 * var(--u)); line-height: calc(16 * var(--u)); }
+        .hero-topics { display: flex; flex-wrap: wrap; list-style: none; gap: calc(10 * var(--u)); padding: 0; margin: calc(9 * var(--u)) 0 calc(14 * var(--u)); }
+        .hero-topics li { display: flex; align-items: center; gap: calc(10 * var(--u)); font-size: calc(10 * var(--u)); font-weight: 600; white-space: nowrap; }
+        .hero-topics li:not(:last-child)::after { content: ""; width: calc(3.5 * var(--u)); height: calc(3.5 * var(--u)); background: var(--gold); border-radius: 50%; }
+        .hero-actions { display: flex; gap: calc(18 * var(--u)); }
+        .hero-actions .button-primary { min-width: calc(209 * var(--u)); }
+        .hero-actions .button-outline { min-width: calc(176 * var(--u)); }
+        .play-icon { display: grid; place-items: center; width: calc(19 * var(--u)); height: calc(19 * var(--u)); color: var(--primary); border: 1px solid var(--rose); border-radius: 50%; }
+        .play-icon .icon { width: calc(10 * var(--u)); height: calc(10 * var(--u)); fill: currentColor; stroke: none; }
+
+        /* ================================================================
+           04. Transformation cards
+           ================================================================ */
+        .transformation-section { position: relative; z-index: 1; padding-top: calc(10 * var(--u)); }
+        .transformation-section .section-heading { margin-bottom: calc(1 * var(--u)); }
+        .transformation-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: calc(12 * var(--u)); width: 88.7%; margin-inline: auto; }
+        .transformation-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 0;
+            height: calc(153 * var(--u));
+            padding: calc(10 * var(--u)) calc(12 * var(--u)) calc(8 * var(--u));
+            border: 1px solid var(--border);
+            border-radius: calc(3 * var(--u));
+            background: #fffcf9;
+            color: var(--text);
+            text-align: center;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .transformation-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: #dec3cb; }
+        .transformation-card > .icon { width: calc(47 * var(--u)); height: calc(43 * var(--u)); margin-bottom: calc(6 * var(--u)); color: var(--rose); }
+        .transformation-card:nth-child(2) > .icon { color: #c19443; }
+        .transformation-card h3 { font-size: calc(10.4 * var(--u)); font-weight: 600; line-height: calc(15 * var(--u)); margin: 0 0 calc(4 * var(--u)); color: var(--burgundy); white-space: nowrap; }
+        .transformation-card p { max-width: calc(116 * var(--u)); margin: 0; font-size: calc(10 * var(--u)); line-height: calc(15 * var(--u)); }
+
+        /* ================================================================
+           05. Program cards
+           ================================================================ */
+        .programs-section { padding-top: calc(8 * var(--u)); position: relative; }
+        .program-grid { width: 86.72%; margin-inline: auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: calc(18 * var(--u)); }
+        .program-card {
+            overflow: hidden;
+            position: relative;
+            height: calc(195 * var(--u));
+            border: 1px solid var(--border);
+            border-radius: calc(5 * var(--u));
+            background: #fffcf9;
+            text-align: center;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .program-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: #e1c6ce; }
+        .program-image { height: calc(82 * var(--u)); overflow: hidden; }
+        .program-image .asset-crop { min-height: 100%; }
+        .program-badge {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            place-items: center;
+            width: calc(37 * var(--u));
+            height: calc(37 * var(--u));
+            margin: calc(-20 * var(--u)) auto calc(-2 * var(--u));
+            background: #fffcf8;
+            border: 1px solid #f1e3d5;
+            border-radius: 50%;
+            color: var(--gold);
+        }
+        .program-badge .icon { width: calc(26 * var(--u)); height: calc(26 * var(--u)); }
+        .program-card h3 { margin: 0 0 calc(4 * var(--u)); font-size: calc(11 * var(--u)); line-height: calc(15 * var(--u)); font-weight: 600; text-transform: uppercase; color: #922b48; }
+        .program-card h3 button { padding: 0; border: 0; background: none; color: inherit; font: inherit; }
+        .program-card h3 button::after { content: ""; position: absolute; inset: 0; }
+        .program-card h3 button:focus-visible::after { border: 2px solid var(--gold); border-radius: 4px; }
+        .program-card p { width: 84%; margin: 0 auto; font-size: calc(10 * var(--u)); line-height: calc(14 * var(--u)); }
+        .programs-footer { position: relative; z-index: 3; text-align: center; margin-top: calc(-12 * var(--u)); }
+        .programs-footer .button { min-height: calc(28 * var(--u)); padding: calc(5 * var(--u)) calc(16 * var(--u)); font-size: calc(11 * var(--u)); }
+        .program-card.is-highlighted { box-shadow: 0 0 0 2px var(--rose), var(--shadow); }
+
+        /* ================================================================
+           06. Community feature
+           ================================================================ */
+        .community-section {
+            width: 95.3%;
+            margin: calc(8 * var(--u)) auto 0;
+            padding: calc(10 * var(--u)) calc(20 * var(--u));
+            min-height: calc(180 * var(--u));
+            border: 1px solid #f3e9e3;
+            border-radius: calc(7 * var(--u));
+            background: linear-gradient(110deg, #fbf2ee, #fdf5f2);
+        }
+        .community-grid { display: grid; grid-template-columns: 29.2% 44.6% 22%; gap: 2.1%; align-items: center; }
+        .community-picture { border-radius: calc(5 * var(--u)); }
+        .community-copy { align-self: stretch; padding-top: calc(6 * var(--u)); }
+        .community-copy h2 {
+            margin: 0 0 calc(8 * var(--u));
+            color: var(--burgundy);
+            font-family: var(--font-heading);
+            font-size: calc(24 * var(--u));
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: calc(-.6 * var(--u));
+            white-space: nowrap;
+        }
+        .community-copy h2 .icon { color: var(--rose); width: calc(28 * var(--u)); height: calc(28 * var(--u)); margin-left: calc(6 * var(--u)); transform: rotate(13deg); }
+        .community-copy > p { margin: 0; font-size: calc(11.5 * var(--u)); line-height: calc(17.5 * var(--u)); }
+        .community-categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(8 * var(--u)); margin-top: calc(19 * var(--u)); }
+        .community-category { display: flex; align-items: center; gap: calc(5 * var(--u)); }
+        .community-category .icon { width: calc(25 * var(--u)); height: calc(29 * var(--u)); color: var(--rose); stroke-width: 1.4; }
+        .community-category span { font-size: calc(8 * var(--u)); line-height: calc(12 * var(--u)); font-weight: 600; }
+        .community-action { padding-left: calc(18 * var(--u)); border-left: 1px solid #d7be9c; }
+        .community-benefits { list-style: none; padding: 0; margin: 0 0 calc(10 * var(--u)); }
+        .community-benefits li { display: flex; gap: calc(8 * var(--u)); align-items: flex-start; font-size: calc(10 * var(--u)); line-height: calc(15 * var(--u)); margin-bottom: calc(5 * var(--u)); }
+        .community-benefits .icon { width: calc(14 * var(--u)); height: calc(14 * var(--u)); color: var(--rose); }
+        .community-action .button { width: calc(169 * var(--u)); max-width: 100%; min-height: calc(43 * var(--u)); font-size: calc(11 * var(--u)); padding: calc(6 * var(--u)) calc(9 * var(--u)); flex-wrap: wrap; column-gap: calc(6 * var(--u)); row-gap: 0; }
+        .community-action .button span { display: block; }
+        .community-caption { margin: calc(6 * var(--u)) calc(-7 * var(--u)) 0; white-space: nowrap; font-size: calc(9 * var(--u)); text-align: center; }
+        .gold-dot { color: var(--gold); padding-inline: calc(3 * var(--u)); }
+
+        /* ================================================================
+           07. About and statistics
+           ================================================================ */
+        .about-section { display: grid; grid-template-columns: 28.46% 1fr 25.42%; gap: 1.687%; width: 86.8%; margin: calc(6 * var(--u)) 0 0 5.27%; align-items: start; }
+        .about-picture { border-radius: calc(7 * var(--u)); }
+        .about-copy { padding-top: calc(5 * var(--u)); }
+        .about-copy h2 { margin: 0; font-family: var(--font-heading); color: var(--burgundy); font-weight: 600; font-size: calc(22 * var(--u)); line-height: calc(27 * var(--u)); }
+        .about-copy h2 .script-text { font-size: calc(31 * var(--u)); margin-left: calc(3 * var(--u)); }
+        .about-role { margin: 0 0 calc(6 * var(--u)); font-size: calc(9.5 * var(--u)); line-height: calc(14 * var(--u)); }
+        .about-copy > p:not(.about-role) { margin-bottom: calc(7 * var(--u)); font-size: calc(10 * var(--u)); line-height: calc(14 * var(--u)); }
+        .about-copy .purpose { font-weight: 600; }
+        .purpose strong { display: block; color: var(--primary); font-weight: 700; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: calc(3 * var(--u)); border: 1px solid var(--border); border-radius: calc(8 * var(--u)); overflow: hidden; background: #fffcf9; }
+        .stat { min-height: calc(83 * var(--u)); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: calc(6 * var(--u)); }
+        .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+        .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+        .stat .icon { width: calc(29 * var(--u)); height: calc(28 * var(--u)); color: var(--rose); margin-bottom: calc(3 * var(--u)); }
+        .stat:nth-child(3) .icon { color: var(--gold); }
+        .stat strong { font-size: calc(14 * var(--u)); font-weight: 600; line-height: calc(17 * var(--u)); color: var(--burgundy); }
+        .stat span { font-size: calc(8.7 * var(--u)); line-height: calc(12 * var(--u)); }
+
+        /* ================================================================
+           08. Testimonial carousel
+           ================================================================ */
+        .testimonials-section { position: relative; min-height: calc(131 * var(--u)); margin-top: calc(4 * var(--u)); padding-top: calc(3 * var(--u)); background: #fcf3f1; }
+        .testimonials-section .section-heading h2 { font-size: calc(16.5 * var(--u)); line-height: calc(21 * var(--u)); }
+        .testimonials-section .section-ornament { height: calc(7 * var(--u)); }
+        .testimonial-window { width: 76.5%; margin: calc(-4 * var(--u)) auto 0; overflow: hidden; padding: calc(1 * var(--u)); }
+        .testimonial-track { display: flex; gap: calc(22 * var(--u)); transition: transform .45s ease; will-change: transform; }
+        .testimonial-card {
+            position: relative;
+            flex: 0 0 calc((100% - 44 * var(--u)) / 3);
+            min-width: 0;
+            height: calc(100 * var(--u));
+            border: 1px solid #f1e5e0;
+            border-radius: calc(5 * var(--u));
+            padding: calc(8 * var(--u)) calc(18 * var(--u)) calc(5 * var(--u));
+            background: #fffbf7;
+        }
+        .quote-mark { position: absolute; top: calc(-1 * var(--u)); left: calc(18 * var(--u)); color: var(--primary); font-family: Georgia, serif; font-size: calc(28 * var(--u)); line-height: 1; }
+        .testimonial-card blockquote { margin: calc(4 * var(--u)) 0 calc(3 * var(--u)); font-size: calc(9.1 * var(--u)); line-height: calc(11.8 * var(--u)); letter-spacing: calc(-.08 * var(--u)); height: calc(47 * var(--u)); }
+        .testimonial-person { display: flex; align-items: center; gap: calc(9 * var(--u)); }
+        .testimonial-avatar { width: calc(32 * var(--u)); height: calc(32 * var(--u)); flex: 0 0 calc(32 * var(--u)); border-radius: 50%; }
+        .avatar-initials { display: grid; place-items: center; background: #f1dee5; color: var(--primary); font-family: var(--font-heading); font-size: calc(16 * var(--u)); }
+        .testimonial-person strong { display: block; font-weight: 600; font-size: calc(9.4 * var(--u)); line-height: calc(13 * var(--u)); color: var(--burgundy); }
+        .testimonial-person span { display: block; font-size: calc(8.4 * var(--u)); line-height: calc(12 * var(--u)); }
+        .carousel-arrow { display: grid; place-items: center; position: absolute; z-index: 3; top: 51%; width: calc(27 * var(--u)); height: calc(27 * var(--u)); padding: 0; border: 1px solid #dfcdd0; border-radius: 50%; background: #fffbf8; color: var(--primary); transition: background .2s, transform .2s; }
+        .carousel-arrow:hover { background: #f4e1e7; transform: scale(1.08); }
+        .carousel-arrow .icon { width: calc(16 * var(--u)); height: calc(16 * var(--u)); stroke-width: 2; }
+        .carousel-prev { left: 4.6%; }
+        .carousel-next { right: 6.8%; }
+        .carousel-dots { display: flex; justify-content: center; align-items: center; gap: calc(4 * var(--u)); height: calc(7 * var(--u)); margin-top: calc(-1 * var(--u)); }
+        .carousel-dot { padding: 0; border: 1px solid #cdb8bc; width: calc(5 * var(--u)); height: calc(5 * var(--u)); border-radius: 50%; background: transparent; position: relative; }
+        .carousel-dot::before { content: ""; position: absolute; inset: -7px; }
+        .carousel-dot.active { background: var(--primary); border-color: var(--primary); }
+
+        /* ================================================================
+           09. Closing CTA and footer
+           ================================================================ */
+        .closing-cta { position: relative; display: flex; align-items: center; min-height: calc(81 * var(--u)); background: linear-gradient(100deg, #be536e 0%, #bb4966 62%, #e9b4a6 100%); color: #fff; }
+        .cta-leaves { position: absolute; width: 16.3%; left: 0; bottom: 0; opacity: .95; pointer-events: none; }
+        .cta-candles { position: absolute; z-index: 2; bottom: 0; right: 0; width: 21.58%; pointer-events: none; clip-path: polygon(49% 0, 100% 0, 100% 100%, 0 100%, 0 33.1%, 49% 33.1%); }
+        .closing-copy { position: relative; z-index: 3; width: 34.2%; margin-left: 17.2%; padding: calc(2 * var(--u)) 0; }
+        .closing-copy h2 { color: #fff9f1; font-family: var(--font-script); font-size: calc(27 * var(--u)); font-weight: 400; line-height: calc(27 * var(--u)); margin: 0; }
+        .closing-copy p { margin: 0; font-size: calc(9.3 * var(--u)); line-height: calc(12 * var(--u)); }
+        .closing-action { position: relative; z-index: 3; width: 19%; margin-left: 1.4%; text-align: center; }
+        .closing-action .button { min-height: calc(42 * var(--u)); width: calc(165 * var(--u)); padding: calc(6 * var(--u)) calc(13 * var(--u)); }
+        .closing-action p { margin: calc(4 * var(--u)) 0 0; font-size: calc(9 * var(--u)); line-height: 1.3; white-space: nowrap; }
+        .site-footer { position: relative; padding: calc(4 * var(--u)) 0 calc(5 * var(--u)); background: #fcf3ee; font-size: calc(8.1 * var(--u)); line-height: calc(10.5 * var(--u)); }
+        .footer-grid { width: 91%; margin: 0 auto; display: grid; grid-template-columns: 26.5% 18.5% 23.3% 25.7%; gap: 2%; align-items: start; }
+        .footer-logo { width: calc(150 * var(--u)); }
+        .copyright { font-size: calc(7.6 * var(--u)); margin: calc(1 * var(--u)) 0 0; white-space: nowrap; color: #725963; }
+        .site-footer h2 { margin: calc(2 * var(--u)) 0 calc(3 * var(--u)); font-family: var(--font-body); font-size: calc(8.5 * var(--u)); font-weight: 600; line-height: 1.3; color: var(--burgundy); }
+        .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); padding: 0; margin: 0; list-style: none; }
+        .site-footer a:hover { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+        .footer-contact { list-style: none; margin: 0; padding: 0; }
+        .footer-contact li { display: flex; align-items: center; gap: calc(5 * var(--u)); }
+        .footer-contact .icon { width: calc(9 * var(--u)); height: calc(9 * var(--u)); color: var(--primary); }
+        .newsletter-layout { display: grid; grid-template-columns: 1.35fr 1fr; gap: calc(5 * var(--u)); }
+        .newsletter-layout p { margin: 0; font-size: calc(7.8 * var(--u)); line-height: calc(10 * var(--u)); }
+        .newsletter-form { min-width: 0; }
+        .newsletter-form input { width: 100%; min-width: 0; height: calc(16 * var(--u)); padding: calc(2 * var(--u)) calc(6 * var(--u)); border: 1px solid #efded7; border-radius: 2px; font-size: calc(6.9 * var(--u)); background: #fff; color: var(--text); outline-offset: 1px; }
+        .newsletter-form input::placeholder { color: #a59497; }
+        .newsletter-form .button { width: 100%; min-height: calc(15 * var(--u)); margin-top: calc(3 * var(--u)); padding: calc(2 * var(--u)) calc(4 * var(--u)); border-radius: 2px; font-size: calc(7.5 * var(--u)); line-height: 1; }
+        .newsletter-feedback { grid-column: 1 / -1; font-size: 10px !important; line-height: 1.5 !important; margin-top: 5px !important; }
+        .newsletter-feedback a { color: var(--primary); text-decoration: underline; }
+
+        /* ================================================================
+           10. Modals, forms, journal, and introduction player
+           ================================================================ */
+        .modal { --u: 1px; font-size: 14px; line-height: 1.6; }
+        .modal-dialog { max-width: 570px; }
+        .modal-content { border: 1px solid #ead6dc; border-radius: 16px; background: #fffaf7; box-shadow: 0 24px 90px rgba(45, 15, 27, .2); overflow: hidden; }
+        .modal-header { border-bottom: 1px solid var(--border); padding: 22px 26px 17px; align-items: flex-start; }
+        .modal-title { font-family: var(--font-heading); font-size: 31px; font-weight: 600; line-height: 1.1; color: var(--burgundy); }
+        .modal-eyebrow { display: block; margin-bottom: 7px; font-size: 10px; font-weight: 600; letter-spacing: 1.8px; color: var(--primary); text-transform: uppercase; }
+        .modal-header .btn-close { margin-top: 0; padding: 10px; flex-shrink: 0; }
+        .modal-body { padding: 22px 26px 26px; }
+        .modal .button { min-height: 44px; font-size: 12px; padding: 11px 18px; }
+        .modal .button .icon { width: 17px; height: 17px; }
+        .modal-subtitle { color: var(--muted); margin-bottom: 20px; font-size: 13px; }
+        .form-label { font-size: 12px; font-weight: 600; color: var(--burgundy); margin-bottom: 5px; }
+        .form-control, .form-select { min-height: 44px; font-size: 13px; border-color: #e2d3ce; background-color: #fff; border-radius: 6px; padding: 10px 12px; }
+        .form-control:focus, .form-select:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(169, 61, 93, .1); }
+        .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+        .form-check-input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(169, 61, 93, .1); }
+        .form-check-label { font-size: 11px; color: var(--muted); }
+        .invalid-feedback { font-size: 11px; }
+        .form-note { color: var(--muted); font-size: 11px; margin: 10px 0 0; }
+        .booking-confirmation { text-align: center; }
+        .confirmation-icon { display: grid; place-items: center; width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; color: var(--primary); background: #f5e5eb; }
+        .confirmation-icon .icon { width: 37px; height: 37px; }
+        .booking-confirmation h3 { font-family: var(--font-heading); color: var(--burgundy); font-size: 30px; }
+        .booking-summary { padding: 15px; border-radius: 8px; background: #f8eee8; color: var(--burgundy); white-space: pre-line; text-align: left; font-size: 13px; }
+        .confirmation-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .detail-icon { color: var(--rose); width: 50px; height: 50px; margin-bottom: 13px; }
+        .detail-features { padding-left: 20px; margin: 16px 0 22px; }
+        .detail-features li { padding-left: 4px; margin: 8px 0; }
+        .detail-features li::marker { color: var(--gold); }
+        .detail-meta { display: inline-block; padding: 7px 11px; background: #f4e6e9; border-radius: 5px; color: var(--primary); font-size: 11px; margin-bottom: 18px; }
+        .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .journal-modal .accordion { --bs-accordion-border-color: var(--border); --bs-accordion-bg: #fffaf7; --bs-accordion-active-bg: #f5e6eb; --bs-accordion-active-color: var(--burgundy); --bs-accordion-btn-focus-box-shadow: 0 0 0 3px rgba(169, 61, 93, .1); }
+        .journal-modal .accordion-button { font-size: 14px; font-weight: 500; line-height: 1.5; }
+        .journal-modal .accordion-body { font-size: 13px; color: #65585d; }
+        .journal-modal .accordion-body p:last-child { margin-bottom: 0; }
+        .intro-modal .modal-dialog { max-width: 720px; }
+        .intro-modal .modal-body { padding: 0; }
+        .intro-stage { position: relative; overflow: hidden; aspect-ratio: 16 / 9; min-height: 260px; background: radial-gradient(ellipse at top left, #fffaf5, #f6e7df); }
+        .intro-portrait { position: absolute; bottom: 0; right: -5%; width: 58%; opacity: .95; -webkit-mask-image: linear-gradient(to right, transparent, #000 25%); mask-image: linear-gradient(to right, transparent, #000 25%); }
+        .intro-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(252, 247, 242, .65), transparent 80%); pointer-events: none; }
+        .intro-stage-label { position: absolute; top: 24px; left: 26px; z-index: 2; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 600; }
+        .intro-caption { position: absolute; left: 26px; top: 31%; width: 53%; z-index: 2; color: var(--burgundy); font-family: var(--font-heading); font-size: clamp(27px, 4vw, 39px); font-weight: 600; line-height: 1.13; }
+        .intro-caption.is-entering { animation: captionIn .6s ease both; }
+        .intro-stage-flourish { position: absolute; z-index: 2; left: 27px; bottom: 23px; font-family: var(--font-script); color: var(--primary); font-size: 24px; }
+        .intro-controls { display: flex; align-items: center; gap: 12px; padding: 13px 20px; background: #fffaf7; }
+        .player-button { border: 1px solid #e4cbd3; border-radius: 50%; width: 39px; height: 39px; background: #fff; color: var(--primary); display: grid; place-items: center; flex: 0 0 auto; }
+        .player-button .icon { width: 18px; height: 18px; }
+        .intro-progress { flex: 1; min-width: 40px; height: 4px; accent-color: var(--primary); cursor: pointer; }
+        .intro-time { font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .narration-button { font-size: 10px; color: var(--primary); border: 1px solid #ead5dc; border-radius: 5px; background: transparent; padding: 7px 9px; white-space: nowrap; }
+        .narration-button[aria-pressed="true"] { color: #fff; background: var(--primary); }
+        .intro-bottom { padding: 0 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+        .intro-bottom p { color: var(--muted); font-size: 11px; margin: 0; }
+        .intro-bottom .button { font-size: 10px; min-height: 37px; }
+
+        /* ================================================================
+           11. Animation and motion preferences
+           ================================================================ */
+        @keyframes captionIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gentleIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-copy { animation: gentleIn .8s ease both; }
+        .js-ready .reveal { opacity: 0; transform: translateY(14px); transition: opacity .65s ease, transform .65s ease; }
+        .js-ready .reveal.is-visible { opacity: 1; transform: none; }
+
+        /* ================================================================
+           12. Responsive layouts: tablet and mobile
+           ================================================================ */
+        @media (min-width: 992px) {
+            .main-navigation.collapse { display: flex !important; }
+        }
+
+        @media (max-width: 991.98px) {
+            :root { --u: 1px; }
+            body { font-size: 13px; }
+            .reference-container { width: 90%; }
+            .hero { height: 535px; }
+            .brand { width: 100px; flex-basis: 100px; margin-top: 6px; }
+            .navbar-toggler { display: block; margin: 24px 0 0 auto; }
+            .main-navigation { position: absolute; top: 101px; left: -5.55%; right: -5.55%; margin: 0; background: #fffaf6; border-top: 1px solid #f0e0da; box-shadow: 0 15px 25px rgba(61, 21, 32, .1); }
+            .nav-content { display: block; padding: 16px 5%; }
+            .nav-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; }
+            .nav-link-custom { font-size: 12px; padding: 15px 0; width: 100%; }
+            .nav-book { margin: 12px 0 2px; min-height: 44px; width: 100%; font-size: 12px; }
+            .nav-book br { display: none; }
+            .hero-copy { margin-left: 5%; padding-top: 142px; width: 51%; }
+            .hero-title { font-size: clamp(33px, 4.35vw, 43px); letter-spacing: -1px; }
+            .hero-title .title-heart { width: 29px; height: 29px; margin-left: 4px; }
+            .hero-lead { font-size: 12px; line-height: 20px; white-space: normal; margin-top: 13px; }
+            .hero-lead .script-text { display: block; font-size: 25px; margin: 1px 0 0; }
+            .hero-description { width: 335px; font-size: 12px; line-height: 18px; }
+            .hero-topics { gap: 6px 9px; margin: 12px 0 15px; max-width: 345px; }
+            .hero-topics li { font-size: 10px; gap: 9px; }
+            .hero-actions { gap: 10px; flex-wrap: wrap; }
+            .hero-actions .button { min-height: 40px; font-size: 10px; min-width: 0; padding-inline: 12px; }
+            .hero-visual { top: auto; bottom: 0; width: 54%; }
+            .transformation-section { padding-top: 19px; }
+            .section-heading h2 { font-size: 24px; line-height: 29px; }
+            .section-ornament { height: 15px; }
+            .transformation-section .section-heading { margin-bottom: 10px; }
+            .transformation-grid { width: 90%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+            .transformation-card { height: 170px; padding: 16px 12px; }
+            .transformation-card h3 { font-size: 12px; margin-bottom: 6px; }
+            .transformation-card p { font-size: 11.5px; line-height: 17px; max-width: 170px; }
+            .transformation-card > .icon { margin-bottom: 10px; }
+            .programs-section { padding-top: 26px; }
+            .programs-section .section-heading { margin-bottom: 12px; }
+            .program-grid { width: 90%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+            .program-card { height: 253px; }
+            .program-image { height: 119px; }
+            .program-badge { width: 42px; height: 42px; margin-top: -23px; margin-bottom: 3px; }
+            .program-card h3 { font-size: 12px; line-height: 17px; }
+            .program-card p { font-size: 11.5px; line-height: 17px; }
+            .programs-footer { margin-top: 18px; }
+            .programs-footer .button { min-height: 42px; padding: 10px 20px; font-size: 12px; }
+            .community-section { width: 94%; margin-top: 27px; padding: 18px; }
+            .community-grid { grid-template-columns: 36% 1fr; gap: 18px; align-items: center; }
+            .community-picture { aspect-ratio: 272 / 190; }
+            .community-picture > img { top: -572%; }
+            .community-copy { padding-top: 0; }
+            .community-copy h2 { font-size: 26px; white-space: normal; letter-spacing: -.5px; margin-bottom: 10px; }
+            .community-copy h2 .icon { width: 23px; height: 23px; }
+            .community-copy > p { font-size: 12px; line-height: 19px; }
+            .community-categories { margin-top: 14px; gap: 8px; }
+            .community-category { gap: 4px; }
+            .community-category .icon { width: 22px; }
+            .community-category span { font-size: 8px; line-height: 12px; }
+            .community-action { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; border-left: 0; border-top: 1px solid #dfcbbd; padding: 16px 0 0; flex-wrap: wrap; }
+            .community-benefits { display: flex; gap: 18px; flex: 1; margin: 0; }
+            .community-benefits li { font-size: 11px; line-height: 17px; margin: 0; }
+            .community-action .button { min-height: 45px; width: 170px; }
+            .community-caption { flex-basis: 100%; margin: -8px 0 0; font-size: 10px; text-align: right; }
+            .about-section { width: 90%; margin: 24px auto 0; grid-template-columns: 34% 1fr; gap: 18px 22px; align-items: center; }
+            .about-copy { padding: 0; }
+            .about-copy h2 { font-size: 26px; line-height: 34px; }
+            .about-copy h2 .script-text { font-size: 35px; }
+            .about-role { font-size: 10.5px; line-height: 16px; }
+            .about-copy > p:not(.about-role) { font-size: 11.5px; line-height: 17px; }
+            .stats-grid { grid-column: 1 / -1; grid-template-columns: repeat(4, 1fr); margin: 0; }
+            .stat { min-height: 110px; }
+            .stat:nth-child(-n+2) { border-bottom: none; }
+            .stat:not(:last-child) { border-right: 1px solid var(--border); }
+            .stat .icon { width: 32px; height: 32px; margin-bottom: 6px; }
+            .stat strong { font-size: 18px; line-height: 23px; }
+            .stat span { font-size: 10px; line-height: 14px; }
+            .testimonials-section { margin-top: 26px; padding: 14px 0 13px; min-height: 195px; }
+            .testimonials-section .section-heading h2 { font-size: 22px; line-height: 28px; }
+            .testimonials-section .section-ornament { height: 12px; }
+            .testimonial-window { width: 82%; margin-top: 5px; }
+            .testimonial-track { gap: 18px; }
+            .testimonial-card { flex-basis: calc((100% - 18px) / 2); height: 135px; padding: 12px 18px 9px; }
+            .testimonial-card blockquote { font-size: 11px; line-height: 15px; height: 65px; }
+            .quote-mark { top: 1px; font-size: 31px; }
+            .testimonial-person strong { font-size: 11px; line-height: 15px; }
+            .testimonial-person span { font-size: 10px; line-height: 14px; }
+            .carousel-arrow { width: 34px; height: 34px; top: 48%; }
+            .carousel-prev { left: 2%; }
+            .carousel-next { right: 2%; }
+            .carousel-dots { height: 12px; margin-top: 6px; gap: 7px; }
+            .carousel-dot { width: 6px; height: 6px; }
+            .closing-cta { min-height: 120px; padding: 12px 0; }
+            .closing-copy { margin-left: 11%; width: 43%; }
+            .closing-copy h2 { font-size: 31px; line-height: 31px; }
+            .closing-copy p { font-size: 10px; line-height: 14px; }
+            .closing-copy p br { display: none; }
+            .closing-action { width: 26%; margin-left: 2%; }
+            .closing-action .button { min-height: 46px; width: 180px; max-width: 100%; }
+            .closing-action p { font-size: 8px; white-space: normal; }
+            .cta-leaves { opacity: .65; width: 21%; }
+            .cta-candles { width: 22%; }
+            .site-footer { padding: 18px 0; font-size: 10px; line-height: 16px; }
+            .footer-grid { width: 90%; grid-template-columns: 1.1fr .8fr 1.2fr; gap: 18px; }
+            .site-footer h2 { font-size: 12px; margin-bottom: 7px; }
+            .footer-logo { width: 160px; }
+            .copyright { font-size: 8px; white-space: normal; line-height: 13px; }
+            .footer-contact .icon { width: 12px; height: 12px; }
+            .footer-newsletter { grid-column: 1 / -1; border-top: 1px solid #eadad5; padding-top: 12px; }
+            .newsletter-layout { grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+            .newsletter-layout p { font-size: 11px; line-height: 16px; }
+            .newsletter-form { display: flex; gap: 7px; }
+            .newsletter-form input { height: 38px; font-size: 11px; padding: 8px 10px; }
+            .newsletter-form .button { width: auto; min-width: 110px; min-height: 38px; font-size: 10px; margin: 0; padding: 9px 12px; }
+        }
+
+        @media (max-width: 575.98px) {
+            html { scroll-padding-top: 14px; }
+            .hero { height: auto; }
+            .header-inner { width: 89%; }
+            .brand { width: 100px; flex-basis: 100px; }
+            .navbar-toggler { margin-top: 23px; }
+            .hero-copy { padding-top: 127px; padding-bottom: 27px; margin-left: 6%; width: 88%; }
+            .hero-title { font-size: clamp(34px, 9.5vw, 49px); letter-spacing: -1.2px; line-height: 1.03; }
+            .hero-title .title-heart { width: 28px; height: 30px; margin-left: 4px; }
+            .hero-lead { font-size: 13px; margin: 15px 0 11px; line-height: 20px; }
+            .hero-lead .script-text { font-size: 27px; line-height: 29px; margin-top: 2px; }
+            .hero-description { font-size: 12.5px; line-height: 19px; width: 100%; max-width: 390px; }
+            .hero-topics { max-width: 100%; margin: 13px 0 18px; gap: 7px 9px; }
+            .hero-topics li { font-size: 10.5px; gap: 9px; }
+            .hero-actions { gap: 10px; flex-wrap: nowrap; }
+            .hero-actions .button { padding: 10px; min-height: 44px; font-size: 9px; gap: 6px; }
+            .hero-actions .button-primary { flex: 1.18; }
+            .hero-actions .button-outline { flex: 1; }
+            .hero-actions .button-primary > .icon { width: 12px; }
+            .play-icon { width: 18px; height: 18px; flex-shrink: 0; }
+            .hero-visual { position: relative; bottom: auto; width: 100%; margin-top: -6px; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 5%); mask-image: linear-gradient(to bottom, transparent 0, #000 5%); }
+            .transformation-section { padding-top: 24px; }
+            .section-heading h2 { font-size: 22px; line-height: 28px; letter-spacing: .4px; }
+            .transformation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 89%; }
+            .transformation-card { height: 180px; padding: 14px 9px; }
+            .transformation-card > .icon { width: 46px; height: 44px; margin-bottom: 10px; }
+            .transformation-card h3 { font-size: 11.5px; white-space: normal; line-height: 16px; }
+            .transformation-card p { font-size: 11px; line-height: 16px; max-width: 145px; }
+            .programs-section { padding-top: 28px; }
+            .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 12px; width: 89%; }
+            .program-card { height: 253px; }
+            .program-card:last-child { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
+            .program-image { height: 103px; }
+            .program-card h3 { font-size: 11px; line-height: 16px; margin-bottom: 7px; }
+            .program-card p { width: 88%; font-size: 11px; line-height: 16px; }
+            .program-badge { margin-bottom: 5px; }
+            .programs-footer { margin-top: 19px; }
+            .community-section { width: 92%; padding: 15px; margin-top: 28px; }
+            .community-grid { display: flex; flex-direction: column; gap: 18px; }
+            .community-picture { width: 100%; aspect-ratio: 272 / 159; }
+            .community-picture > img { top: calc(var(--y) / var(--h) * -100%); }
+            .community-copy h2 { font-size: 27px; line-height: 1.08; margin-bottom: 12px; }
+            .community-copy h2 .icon { width: 24px; height: 24px; }
+            .community-copy > p { font-size: 12px; line-height: 19px; }
+            .community-categories { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
+            .community-category { gap: 8px; }
+            .community-category .icon { width: 29px; height: 32px; }
+            .community-category span { font-size: 10px; line-height: 14px; }
+            .community-action { display: block; width: 100%; padding-top: 17px; }
+            .community-benefits { display: block; margin-bottom: 15px; }
+            .community-benefits li { margin-bottom: 8px; font-size: 12px; }
+            .community-action .button { width: 100%; min-height: 45px; font-size: 11px; }
+            .community-action .button span { display: inline; }
+            .community-action .button br { display: none; }
+            .community-caption { font-size: 10px; margin: 10px 0 0; text-align: center; }
+            .about-section { width: 89%; margin-top: 28px; display: flex; flex-direction: column; gap: 20px; align-items: stretch; }
+            .about-picture { width: 100%; }
+            .about-copy h2 { font-size: 29px; line-height: 36px; }
+            .about-copy h2 .script-text { font-size: 39px; }
+            .about-role { font-size: 11px; line-height: 17px; margin-bottom: 12px; }
+            .about-copy > p:not(.about-role) { font-size: 12px; line-height: 19px; margin-bottom: 12px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat { min-height: 119px; }
+            .stat:nth-child(2) { border-right: 0; }
+            .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+            .stat .icon { width: 34px; height: 34px; }
+            .stat strong { font-size: 20px; line-height: 25px; }
+            .stat span { font-size: 11px; line-height: 15px; }
+            .testimonials-section { margin-top: 28px; padding-top: 18px; padding-bottom: 17px; }
+            .testimonials-section .section-heading h2 { font-size: 22px; }
+            .testimonial-window { width: 77%; margin-top: 9px; }
+            .testimonial-card { flex-basis: 100%; height: 163px; padding: 16px 18px 12px; }
+            .testimonial-card blockquote { height: 85px; font-size: 11.5px; line-height: 16px; }
+            .quote-mark { top: 3px; font-size: 35px; }
+            .testimonial-avatar { width: 34px; height: 34px; flex-basis: 34px; }
+            .carousel-arrow { width: 36px; height: 36px; top: 48%; }
+            .carousel-prev { left: 2%; }
+            .carousel-next { right: 2%; }
+            .carousel-dots { margin-top: 9px; }
+            .closing-cta { display: block; padding: 21px 6% 23px; min-height: 228px; }
+            .closing-copy { width: 86%; margin: 0; padding: 0; }
+            .closing-copy h2 { font-size: 34px; line-height: 35px; margin-bottom: 4px; }
+            .closing-copy p { font-size: 11px; line-height: 16px; max-width: 325px; }
+            .closing-action { width: 215px; margin: 17px 0 0; }
+            .closing-action .button { width: 100%; min-height: 44px; font-size: 11px; }
+            .closing-action .button br { display: none; }
+            .closing-action p { font-size: 9px; margin-top: 7px; }
+            .cta-leaves { width: 38%; opacity: .18; top: 0; bottom: auto; }
+            .cta-candles { width: 37%; opacity: .9; }
+            .site-footer { padding: 22px 0; }
+            .footer-grid { grid-template-columns: 1fr 1fr; width: 89%; gap: 22px 16px; }
+            .footer-brand { grid-column: 1 / -1; text-align: center; }
+            .footer-logo { width: 185px; margin-inline: auto; }
+            .copyright { font-size: 9px; line-height: 14px; margin-top: 7px; }
+            .site-footer h2 { font-size: 12px; margin: 0 0 9px; }
+            .footer-links { font-size: 11px; line-height: 24px; gap: 0 6px; }
+            .footer-contact { font-size: 9px; line-height: 19px; }
+            .footer-contact li { gap: 5px; align-items: flex-start; }
+            .footer-contact .icon { width: 11px; height: 11px; margin-top: 4px; }
+            .footer-contact a { overflow-wrap: anywhere; }
+            .newsletter-layout { grid-template-columns: 1fr; gap: 12px; }
+            .newsletter-layout p { font-size: 11px; line-height: 17px; }
+            .newsletter-form input, .newsletter-form .button { min-height: 44px; }
+            .newsletter-form .button { min-width: 108px; }
+            .modal-dialog { margin: 12px; }
+            .modal-header { padding: 20px 20px 15px; }
+            .modal-title { font-size: 28px; }
+            .modal-body { padding: 20px; }
+            .intro-stage { min-height: 260px; aspect-ratio: 4 / 3; }
+            .intro-portrait { width: 68%; right: -12%; }
+            .intro-caption { left: 20px; width: 57%; font-size: 29px; }
+            .intro-stage-label { top: 20px; left: 20px; font-size: 9px; }
+            .intro-stage-flourish { left: 20px; font-size: 21px; }
+            .intro-controls { gap: 9px; padding: 12px; flex-wrap: wrap; }
+            .intro-time { font-size: 10px; }
+            .narration-button { padding: 6px; font-size: 9px; }
+            .intro-bottom { padding: 0 15px 17px; align-items: flex-start; }
+            .intro-bottom p { font-size: 10px; }
+            .intro-bottom .button { padding: 8px 10px; flex-shrink: 0; font-size: 9px; }
+        }
+
+        @media (max-width: 359.98px) {
+            .hero-title { font-size: 32px; }
+            .hero-title .title-heart { width: 22px; margin-left: 0; }
+            .hero-actions { flex-direction: column; }
+            .hero-actions .button { font-size: 11px; }
+            .transformation-card h3 { font-size: 10.5px; }
+            .program-card { height: 266px; }
+            .program-image { height: 93px; }
+            .community-copy h2 { font-size: 25px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-brand, .footer-newsletter { grid-column: auto; }
+            .footer-contact { font-size: 11px; }
+        }
+
+        /* Aspect-ratio fallback for older browsers. */
+        @supports not (aspect-ratio: 1 / 1) {
+            .asset-crop::before { content: ""; display: block; padding-top: calc(var(--h) / var(--w) * 100%); }
+            .intro-stage { height: 350px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+            .js-ready .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Reusable, accessible SVG icon library. -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+        <defs>
+            <symbol id="i-heart" viewBox="0 0 64 64">
+                <path d="M32 55S8 40 6 23C4 8 23 4 32 18 41 4 60 8 58 23 56 40 32 55 32 55Z"/>
+            </symbol>
+            <symbol id="i-hand-heart" viewBox="0 0 64 64">
+                <path d="M15 55C26 44 50 34 49 17 48 3 30 11 31 23 26 10 14 8 12 18 9 29 16 38 24 45M12 56l18-11"/>
+            </symbol>
+            <symbol id="i-rupee" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="28"/>
+                <path d="M21 17h22M21 24h22M25 17c18 0 17 17-4 17l17 15M21 17h8"/>
+            </symbol>
+            <symbol id="i-briefcase" viewBox="0 0 64 64">
+                <rect x="5" y="17" width="54" height="39" rx="5"/>
+                <path d="M23 17v-5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v5M5 30c17 9 37 9 54 0"/>
+                <rect x="28" y="30" width="8" height="11" rx="2"/>
+            </symbol>
+            <symbol id="i-lotus" viewBox="0 0 64 64">
+                <path d="M32 56C11 40 22 15 32 4c11 12 20 37 0 52Z"/>
+                <path d="M31 54C13 51 7 35 11 16c15 4 22 16 21 32M33 54c18-3 24-19 20-38-15 4-22 16-21 32"/>
+                <path d="M29 56C15 57 5 48 2 37c13-2 23 5 29 15M35 56c14 1 24-8 27-19-13-2-23 5-29 15M11 55c13 7 29 7 42 0"/>
+            </symbol>
+            <symbol id="i-brain" viewBox="0 0 64 64">
+                <path d="M34 7c-8-5-18 0-19 6-9-1-15 7-12 14-5 10 2 18 12 17 4 9 16 7 19 1 4 3 9 4 13 1l5 10 8-3-8-14c9-8 8-24-2-29-4-7-11-8-16-3Z"/>
+                <path d="M34 7c-4 6-2 10 3 12M15 13c1 7 6 9 11 5M5 27c9-5 14-1 14 4s-6 8-10 6M17 44c-3-9 9-9 9-17M35 45c-4-5-4-14 2-17s8 2 6 8M49 12c-10 0-5 15-13 17M23 11c0-5 8-5 10-2M45 22c6-4 12 0 10 6M24 39c4 5 11 4 13 0M14 20c-7-1-10 5-7 8"/>
+            </symbol>
+            <symbol id="i-meditate" viewBox="0 0 64 64">
+                <ellipse cx="32" cy="11" rx="7" ry="9"/>
+                <path d="M27 20c-6 4-5 12-9 20L7 48c-6 6 1 11 11 9l14-4 14 4c10 2 17-3 11-9l-11-8c-4-8-3-16-9-20M25 31l-4 13 11 5 11-5-4-13M18 57l14-8 14 8M8 48l12 2M56 48l-12 2"/>
+            </symbol>
+            <symbol id="i-person" viewBox="0 0 64 64">
+                <circle cx="32" cy="17" r="10"/>
+                <path d="M15 57V43c0-11 7-16 17-16s17 5 17 16v14M15 57h34M22 57V43M42 57V43"/>
+            </symbol>
+            <symbol id="i-people" viewBox="0 0 64 64">
+                <circle cx="32" cy="14" r="7"/><circle cx="13" cy="19" r="6"/><circle cx="51" cy="19" r="6"/>
+                <path d="M20 56V35c0-9 24-9 24 0v21M25 56V40M39 56V40M7 56V36c0-7 9-10 15-5M57 56V36c0-7-9-10-15-5M13 41v15M51 41v15"/>
+            </symbol>
+            <symbol id="i-group" viewBox="0 0 64 64">
+                <circle cx="32" cy="17" r="7"/><circle cx="13" cy="23" r="6"/><circle cx="51" cy="23" r="6"/>
+                <path d="M23 49V34c0-10 18-10 18 0v15M5 55V40c0-9 16-9 16 0v15M43 55V40c0-9 16-9 16 0v15M14 8l4 5M50 8l-4 5M31 2v5"/>
+            </symbol>
+            <symbol id="i-woman" viewBox="0 0 64 64">
+                <circle cx="32" cy="15" r="7"/>
+                <path d="M22 17c-6 13-9 21-5 25M42 17c6 13 9 21 5 25M26 23h12l4 13-6-3 9 18H19l9-18-6 3 4-13ZM27 51v11M37 51v11M23 9c4-10 17-8 18 3"/>
+            </symbol>
+            <symbol id="i-leadership" viewBox="0 0 64 64">
+                <circle cx="33" cy="11" r="7"/>
+                <path d="M22 58V32L9 22l-4-9M44 58V32l13-10 3-9M23 25c6 6 14 6 20 0M28 58V39M38 58V39M6 6v4M56 5v5M16 8l3 4M47 7l-3 5"/>
+            </symbol>
+            <symbol id="i-star" viewBox="0 0 64 64">
+                <path d="m32 8 7 15 17 2-12 12 3 17-15-8-15 8 3-17L8 25l17-2Z"/>
+            </symbol>
+            <symbol id="i-star-circle" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="28"/><path d="m32 15 5 11 12 2-9 9 2 12-10-6-11 6 3-12-9-9 12-2Z"/>
+            </symbol>
+            <symbol id="i-check" viewBox="0 0 24 24">
+                <path d="M20 11v1a8 8 0 1 1-4.7-7.3M8 11l4 4 9-10"/>
+            </symbol>
+            <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+            <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+            <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+            <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 13 8-13 8Z"/></symbol>
+            <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3"/></symbol>
+            <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+            <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+            <symbol id="i-phone" viewBox="0 0 24 24"><path d="m5 3 4 1 1 5-3 2c2 4 3 5 7 7l2-3 5 1 1 4c-1 5-9 2-14-3S0 4 5 3Z"/></symbol>
+            <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></symbol>
+            <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01" stroke-width="3"/></symbol>
+        </defs>
+    </svg>
+
+    <div class="site-wrap">
+        <!-- ============================================================
+             HEADER + HERO
+             ============================================================ -->
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <header class="site-header navbar">
+                <div class="reference-container header-inner">
+                    <a class="brand" href="#home" aria-label="Manifest with Jaya — home">
+                        <span class="asset-crop" style="--x:43;--y:8;--w:155;--h:140">
+                            <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Manifest with Jaya, life coaching" width="1024" height="1536" fetchpriority="high">
+                        </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+                    </button>
+                    <nav class="main-navigation collapse" id="main-navigation" aria-label="Main navigation">
+                        <div class="nav-content">
+                            <ul class="nav-list">
+                                <li><a class="nav-link-custom active" href="#home" aria-current="page">Home</a></li>
+                                <li><a class="nav-link-custom" href="#about">About Me</a></li>
+                                <li><a class="nav-link-custom" href="#programs">Programs</a></li>
+                                <li><a class="nav-link-custom" href="#programs" data-healing>Healing</a></li>
+                                <li><a class="nav-link-custom" href="#journalModal" data-bs-toggle="modal" data-bs-target="#journalModal">Blog</a></li>
+                                <li><a class="nav-link-custom" href="#testimonials">Testimonials</a></li>
+                                <li><a class="nav-link-custom" href="#contact">Contact</a></li>
+                            </ul>
+                            <button class="button button-primary nav-book" type="button" data-book="clarity">Book a free<br>clarity call</button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="hero-copy">
+                <h1 class="hero-title" id="hero-title">Manifest the Life<span>You Truly Desire.<svg class="icon title-heart" aria-hidden="true"><use href="#i-hand-heart"/></svg></span></h1>
+                <p class="hero-lead">Clarify your mind. Align your energy. <span class="script-text">Transform your reality.</span></p>
+                <p class="hero-description">At Manifest with Jaya, I help you consciously create the life you desire in health, relationships, career, money and overall well-being through powerful mindset practices and energy alignment.</p>
+                <ul class="hero-topics" aria-label="Areas of transformation">
+                    <li>Health</li><li>Relationships</li><li>Career</li><li>Money</li><li>Mindset</li><li>Well-being</li>
+                </ul>
+                <div class="hero-actions">
+                    <button class="button button-primary" type="button" data-book="clarity">Book a free clarity call<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    <button class="button button-outline" type="button" data-bs-toggle="modal" data-bs-target="#introModal"><span class="play-icon"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>Watch intro video</button>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="asset-crop" style="--x:460;--y:53;--w:564;--h:431">
+                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Jaya smiling at her desk, beside fresh flowers, a journal, and an I choose me mug" width="1024" height="1536" fetchpriority="high">
+                </div>
+            </div>
+        </section>
+
+        <main id="main-content">
+            <!-- TRANSFORMATION CARDS -->
+            <section class="transformation-section" id="transformation" aria-labelledby="transformation-title">
+                <div class="section-heading">
+                    <h2 id="transformation-title">What can you transform?</h2>
+                    <div class="section-ornament" aria-hidden="true"><svg class="icon"><use href="#i-lotus"/></svg></div>
+                </div>
+                <div class="transformation-grid">
+                    <button class="transformation-card reveal" type="button" data-topic="relationships" aria-label="Explore relationship transformation">
+                        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+                        <h3>Relationships</h3>
+                        <p>Create healthier patterns and deeper connections.</p>
+                    </button>
+                    <button class="transformation-card reveal" type="button" data-topic="money" aria-label="Explore money and abundance">
+                        <svg class="icon" aria-hidden="true"><use href="#i-rupee"/></svg>
+                        <h3>Money &amp; Abundance</h3>
+                        <p>Shift limiting beliefs and develop an abundance-oriented mindset.</p>
+                    </button>
+                    <button class="transformation-card reveal" type="button" data-topic="career" aria-label="Explore career and success">
+                        <svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg>
+                        <h3>Career &amp; Success</h3>
+                        <p>Gain clarity, confidence and alignment around your professional journey.</p>
+                    </button>
+                    <button class="transformation-card reveal" type="button" data-topic="health" aria-label="Explore health and well-being">
+                        <svg class="icon" aria-hidden="true"><use href="#i-lotus"/></svg>
+                        <h3>Health &amp; Well-being</h3>
+                        <p>Create practices that support a more balanced and positive life.</p>
+                    </button>
+                    <button class="transformation-card reveal" type="button" data-topic="mindset" aria-label="Explore mindset coaching">
+                        <svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg>
+                        <h3>Mindset</h3>
+                        <p>Recognize limiting beliefs and consciously create empowering ones.</p>
+                    </button>
+                    <button class="transformation-card reveal" type="button" data-topic="growth" aria-label="Explore personal growth">
+                        <svg class="icon" aria-hidden="true"><use href="#i-meditate"/></svg>
+                        <h3>Personal Growth</h3>
+                        <p>Reconnect with yourself and become the version of you you’re ready to step into.</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PROGRAM CARDS -->
+            <section class="programs-section" id="programs" aria-labelledby="programs-title">
+                <div class="section-heading">
+                    <h2 id="programs-title">My programs &amp; offerings</h2>
+                    <div class="section-ornament" aria-hidden="true"><svg class="icon"><use href="#i-lotus"/></svg></div>
+                </div>
+                <div class="program-grid">
+                    <article class="program-card reveal" id="one-on-one">
+                        <div class="program-image">
+                            <div class="asset-crop" style="--x:69;--y:688;--w:150;--h:81">
+                                <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="A supportive one-on-one coaching conversation" width="1024" height="1536" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg></span>
+                        <h3><button type="button" data-program="individual">One-on-one<br>coaching</button></h3>
+                        <p>Personalised transformation with Jaya. Includes FREE access to Daily Magic Practice (DMP).</p>
+                    </article>
+                    <article class="program-card reveal">
+                        <div class="program-image">
+                            <div class="asset-crop" style="--x:238;--y:688;--w:162;--h:81">
+                                <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Women connecting during a group coaching session" width="1024" height="1536" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-group"/></svg></span>
+                        <h3><button type="button" data-program="group">Group<br>coaching</button></h3>
+                        <p>Grow, learn and transform together in a supportive community.</p>
+                    </article>
+                    <article class="program-card reveal">
+                        <div class="program-image">
+                            <div class="asset-crop" style="--x:421;--y:688;--w:158;--h:81">
+                                <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="A manifestation journal, tea, and flowers for a mindful daily practice" width="1024" height="1536" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg></span>
+                        <h3><button type="button" data-program="daily">Daily Magic<br>Practice (DMP)</button></h3>
+                        <p>Simple daily practices to bring manifestation into your everyday life.</p>
+                    </article>
+                    <article class="program-card reveal" id="chakra-healing">
+                        <div class="program-image">
+                            <div class="asset-crop" style="--x:600;--y:688;--w:169;--h:81">
+                                <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Colorful crystals representing the seven chakras" width="1024" height="1536" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-lotus"/></svg></span>
+                        <h3><button type="button" data-program="chakra">Chakra<br>healing</button></h3>
+                        <p>Create greater awareness, balance and energetic alignment.</p>
+                    </article>
+                    <article class="program-card reveal" id="emotional-healing">
+                        <div class="program-image">
+                            <div class="asset-crop" style="--x:791;--y:689;--w:159;--h:80">
+                                <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Hands held together in a peaceful gratitude practice" width="1024" height="1536" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></span>
+                        <h3><button type="button" data-program="eft">Ho’oponopono<br>&amp; EFT</button></h3>
+                        <p>Powerful practices for emotional release, forgiveness and inner healing.</p>
+                    </article>
+                </div>
+                <div class="programs-footer">
+                    <button class="button button-primary" type="button" data-program="overview">Explore my programs<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                </div>
+            </section>
+
+            <!-- COMMUNITY -->
+            <section class="community-section reveal" id="community" aria-labelledby="community-title">
+                <div class="community-grid">
+                    <div class="asset-crop community-picture" style="--x:45;--y:917;--w:272;--h:159">
+                        <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Jaya leading an inspiring workshop for a community audience" width="1024" height="1536" loading="lazy">
+                    </div>
+                    <div class="community-copy">
+                        <h2 id="community-title">Bring Transformation to Your Community <svg class="icon" aria-hidden="true"><use href="#i-hand-heart"/></svg></h2>
+                        <p>I conduct inspiring and interactive sessions for clubs, organisations and corporates on Law of Attraction, Mindset, Manifestation, Well-being, Stress Management and more.</p>
+                        <div class="community-categories">
+                            <div class="community-category"><svg class="icon" aria-hidden="true"><use href="#i-people"/></svg><span>Employee<br>Well-being</span></div>
+                            <div class="community-category"><svg class="icon" aria-hidden="true"><use href="#i-woman"/></svg><span>Women<br>Empowerment</span></div>
+                            <div class="community-category"><svg class="icon" aria-hidden="true"><use href="#i-leadership"/></svg><span>Leadership &amp;<br>Mindset</span></div>
+                            <div class="community-category"><svg class="icon" aria-hidden="true"><use href="#i-meditate"/></svg><span>Personal Growth<br>Workshops</span></div>
+                        </div>
+                    </div>
+                    <div class="community-action">
+                        <ul class="community-benefits">
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Create a positive shift.</span></li>
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Inspire growth.</span></li>
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Build a stronger, happier community together.</span></li>
+                        </ul>
+                        <button class="button button-primary" type="button" data-book="community"><span>Book a community<br>session <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+                        <p class="community-caption">For Clubs <span class="gold-dot">•</span> Organisations <span class="gold-dot">•</span> Corporates</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT AND STATS -->
+            <section class="about-section reveal" id="about" aria-labelledby="about-title">
+                <div class="asset-crop about-picture" style="--x:54;--y:1093;--w:253;--h:172">
+                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Jaya, manifestation coach, mindset coach, healer, and motivational speaker" width="1024" height="1536" loading="lazy">
+                </div>
+                <div class="about-copy">
+                    <h2 id="about-title">Hi, I’m <span class="script-text">Jaya</span></h2>
+                    <p class="about-role">Manifestation Coach, Mindset Coach, Healer &amp; Motivational Speaker.</p>
+                    <p>I believe that every person has the ability to consciously create a more fulfilling life. My journey led me to explore the powerful connection between our thoughts, beliefs, emotions, energy and actions – and today, I bring these practices together to help others create meaningful transformation.</p>
+                    <p class="purpose"><strong>My purpose is bigger than coaching.</strong>I want to take this beautiful science to every household and help people realise that transformation begins from within.</p>
+                </div>
+                <div class="stats-grid" aria-label="Jaya's experience and impact">
+                    <div class="stat"><svg class="icon" aria-hidden="true"><use href="#i-people"/></svg><strong>1000+</strong><span>Lives<br>Transformed</span></div>
+                    <div class="stat"><svg class="icon" aria-hidden="true"><use href="#i-lotus"/></svg><strong>50+</strong><span>Workshops &amp;<br>Sessions</span></div>
+                    <div class="stat"><svg class="icon" aria-hidden="true"><use href="#i-star-circle"/></svg><strong>5+</strong><span>Years of<br>Experience</span></div>
+                    <div class="stat"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><strong>100%</strong><span>Heart-led<br>Approach</span></div>
+                </div>
+            </section>
+
+            <!-- TESTIMONIAL CAROUSEL -->
+            <section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-title" aria-roledescription="carousel">
+                <div class="section-heading">
+                    <h2 id="testimonials-title">Love &amp; Transformation</h2>
+                    <div class="section-ornament" aria-hidden="true"><svg class="icon"><use href="#i-lotus"/></svg></div>
+                </div>
+                <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous testimonials" aria-controls="testimonial-track"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                <div class="testimonial-window" tabindex="0" aria-label="Testimonials. Use the left and right arrow keys to browse.">
+                    <div class="testimonial-track" id="testimonial-track">
+                        <article class="testimonial-card">
+                            <span class="quote-mark" aria-hidden="true">“</span>
+                            <blockquote>Jaya’s guidance helped me shift my mindset completely. I healed old patterns, attracted better opportunities and today I feel more peaceful and confident than ever.</blockquote>
+                            <div class="testimonial-person">
+                                <div class="asset-crop testimonial-avatar" style="--x:141;--y:1357;--w:31;--h:32">
+                                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Priya" width="1024" height="1536" loading="lazy">
+                                </div>
+                                <div><strong>– Priya M.</strong><span>Teacher</span></div>
+                            </div>
+                        </article>
+                        <article class="testimonial-card">
+                            <span class="quote-mark" aria-hidden="true">“</span>
+                            <blockquote>Daily Magic Practice and Ho’oponopono changed the way I handle my emotions and my life. I’m more positive, grateful and aligned with my true purpose.</blockquote>
+                            <div class="testimonial-person">
+                                <div class="asset-crop testimonial-avatar" style="--x:399;--y:1357;--w:31;--h:32">
+                                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Neha" width="1024" height="1536" loading="lazy">
+                                </div>
+                                <div><strong>– Neha R.</strong><span>Entrepreneur</span></div>
+                            </div>
+                        </article>
+                        <article class="testimonial-card">
+                            <span class="quote-mark" aria-hidden="true">“</span>
+                            <blockquote>The sessions with Jaya are so powerful and transformative. I found clarity, money flow improved and my relationships are now more loving and mindful.</blockquote>
+                            <div class="testimonial-person">
+                                <div class="asset-crop testimonial-avatar" style="--x:679;--y:1357;--w:31;--h:32">
+                                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Rohit" width="1024" height="1536" loading="lazy">
+                                </div>
+                                <div><strong>– Rohit S.</strong><span>IT Professional</span></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <button class="carousel-arrow carousel-next" type="button" aria-label="Next testimonials" aria-controls="testimonial-track"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+                <div class="carousel-dots" aria-label="Choose the first testimonial"></div>
+                <p class="visually-hidden" id="testimonial-status" role="status" aria-live="polite"></p>
+            </section>
+
+            <!-- CLOSING CALL TO ACTION -->
+            <section class="closing-cta" aria-labelledby="closing-title">
+                <div class="asset-crop cta-leaves" style="--x:0;--y:1400;--w:167;--h:81" aria-hidden="true">
+                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="" width="1024" height="1536" loading="lazy">
+                </div>
+                <div class="closing-copy">
+                    <h2 id="closing-title">Not sure where to begin?</h2>
+                    <p>Sometimes you don’t need another course, another video<br>or another book. You simply need clarity.<br>Let’s have a conversation about where you are, where you<br>want to go and what may be holding you back.</p>
+                </div>
+                <div class="closing-action">
+                    <button class="button button-white" type="button" data-book="clarity"><span>Book your<br>free clarity call</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    <p>It’s completely free and confidential.</p>
+                </div>
+                <div class="asset-crop cta-candles" style="--x:803;--y:1360;--w:221;--h:121" aria-hidden="true">
+                    <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="" width="1024" height="1536" loading="lazy">
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="site-footer" id="contact">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a class="footer-logo asset-crop" href="#home" style="--x:45;--y:1484;--w:150;--h:38" aria-label="Manifest with Jaya — back to home">
+                        <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Manifest with Jaya" width="1024" height="1536" loading="lazy">
+                    </a>
+                    <p class="copyright">© 2024 Manifest with Jaya. All Rights Reserved.</p>
+                </div>
+                <nav aria-label="Footer navigation">
+                    <h2>Quick Links</h2>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Me</a></li><li><a href="#programs" data-healing>Healing</a></li>
+                        <li><a href="#programs">Programs</a></li><li><a href="#journalModal" data-bs-toggle="modal" data-bs-target="#journalModal">Blog</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li><li><a href="mailto:hello@manifestwithjaya.com">Contact</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <h2>Get in Touch</h2>
+                    <ul class="footer-contact">
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+919919446685">+91 99194 46685</a></li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:hello@manifestwithjaya.com">hello@manifestwithjaya.com</a></li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg><a href="https://manifestwithjaya.com" target="_blank" rel="noopener noreferrer">www.manifestwithjaya.com</a></li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg><a href="https://www.instagram.com/manifestwithjaya/" target="_blank" rel="noopener noreferrer">manifestwithjaya</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h2>Stay Connected</h2>
+                    <div class="newsletter-layout">
+                        <p>Subscribe to get tips, updates and inspiration straight to your inbox.</p>
+                        <form class="newsletter-form" id="newsletter-form">
+                            <label class="visually-hidden" for="newsletter-email">Your email address</label>
+                            <input type="email" id="newsletter-email" name="email" placeholder="Enter your email address" autocomplete="email" required aria-describedby="newsletter-feedback">
+                            <button class="button button-primary" type="submit">Subscribe</button>
+                        </form>
+                        <p class="newsletter-feedback" id="newsletter-feedback" role="status" hidden></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ================================================================
+         BOOKING MODAL
+         A working email-request flow: no invented backend confirmations.
+         ================================================================ -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="booking-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div><span class="modal-eyebrow" id="booking-eyebrow">A little clarity. A beautiful beginning.</span><h2 class="modal-title" id="booking-title">Let’s begin with a conversation.</h2></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close booking form"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="booking-form" novalidate>
+                        <p class="modal-subtitle" id="booking-subtitle">A free, confidential 30-minute clarity call to explore where you are and what you’d love to change.</p>
+                        <input type="hidden" id="booking-type" name="type" value="clarity">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="booking-name" class="form-label">Your name <span aria-hidden="true">*</span></label>
+                                <input type="text" class="form-control" id="booking-name" name="name" placeholder="Your full name" autocomplete="name" required minlength="2" maxlength="100">
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-email" class="form-label">Email address <span aria-hidden="true">*</span></label>
+                                <input type="email" class="form-control" id="booking-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="booking-focus" class="form-label" id="booking-focus-label">What would you like support with?</label>
+                                <select class="form-select" id="booking-focus" name="focus">
+                                    <option value="Finding clarity">I’m not sure yet — I’d love some clarity</option>
+                                    <option value="Relationships">Relationships</option>
+                                    <option value="Money & Abundance">Money &amp; Abundance</option>
+                                    <option value="Career & Success">Career &amp; Success</option>
+                                    <option value="Health & Well-being">Health &amp; Well-being</option>
+                                    <option value="Mindset">Mindset</option>
+                                    <option value="Personal Growth">Personal Growth</option>
+                                    <option value="Energy Healing">Energy Healing</option>
+                                    <option value="Community Workshop">A community or corporate workshop</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-date" class="form-label">Preferred date <span aria-hidden="true">*</span></label>
+                                <input type="date" class="form-control" id="booking-date" name="date" required>
+                                <div class="invalid-feedback">Choose a date from tomorrow onward.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-time" class="form-label">Preferred time <span aria-hidden="true">*</span></label>
+                                <select class="form-select" id="booking-time" name="time" required>
+                                    <option value="">Choose a time</option>
+                                    <option>10:00 AM</option><option>12:00 PM</option><option>3:00 PM</option><option>5:00 PM</option>
+                                </select>
+                                <div class="invalid-feedback">Please choose your preferred time.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="booking-message" class="form-label">Anything you’d like Jaya to know? <span class="fw-normal text-muted">(optional)</span></label>
+                                <textarea class="form-control" id="booking-message" name="message" rows="3" maxlength="1500" placeholder="A little about what brings you here…"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="booking-consent" required>
+                                    <label class="form-check-label" for="booking-consent">I agree to be contacted about this session. My details will only be used for this request.</label>
+                                    <div class="invalid-feedback">Please confirm that Jaya may contact you.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="button button-primary w-100" type="submit">Prepare my session request<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                                <p class="form-note">Times are in <span id="booking-timezone">your local time zone</span>. Your preferred time is a request, not a confirmed appointment. You’ll send the details by email in the next step.</p>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="booking-confirmation" id="booking-confirmation" hidden>
+                        <div class="confirmation-icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></div>
+                        <h3 id="confirmation-title">Your next chapter is waiting.</h3>
+                        <p>One last step: email your request to Jaya. She’ll get back to you to confirm a time that works for both of you.</p>
+                        <div class="booking-summary" id="booking-summary"></div>
+                        <div class="confirmation-actions">
+                            <a class="button button-primary" id="booking-email-link" href="mailto:hello@manifestwithjaya.com">Send request by email<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                            <button class="button button-outline" type="button" id="copy-request">Copy details</button>
+                        </div>
+                        <p class="form-note" id="copy-status" role="status">Nothing has been sent yet. Your appointment is confirmed only after Jaya replies.</p>
+                        <button class="btn btn-link mt-2 p-1" style="color:var(--primary);font-size:12px" type="button" id="edit-booking">Edit my details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRAM AND TRANSFORMATION DETAIL COMPONENT -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detail-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div><span class="modal-eyebrow" id="detail-eyebrow">Your path to transformation</span><h2 class="modal-title" id="detail-title">Find your next step.</h2></div>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close program details"></button>
+                </div>
+                <div class="modal-body">
+                    <svg class="icon detail-icon" aria-hidden="true"><use id="detail-icon-use" href="#i-lotus"/></svg>
+                    <p id="detail-description"></p>
+                    <ul class="detail-features" id="detail-features"></ul>
+                    <div class="detail-meta" id="detail-meta"></div>
+                    <div class="detail-actions">
+                        <button class="button button-primary" type="button" id="detail-book">Find my next step<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                        <a class="button button-outline" href="#programs" data-bs-dismiss="modal">View all programs</a>
+                    </div>
+                    <p class="form-note" id="detail-note" hidden>These practices support personal well-being and are not a substitute for medical or mental health care.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    INTRODUCTION PLAYER
+    The reference does not supply a video file. This accessible animated
+    introduction uses the provided photography, timed captions, seeking,
+    play/pause, and optional browser-generated narration.
+    -->
+    <div class="modal fade intro-modal" id="introModal" tabindex="-1" aria-labelledby="intro-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div><span class="modal-eyebrow">Welcome to Manifest with Jaya</span><h2 class="modal-title" id="intro-title">A little introduction.</h2></div>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close introduction"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="intro-stage">
+                        <div class="asset-crop intro-portrait" style="--x:534;--y:53;--w:326;--h:405">
+                            <img src="https://dvxrhkgloakisnvqoxgl.supabase.co/storage/v1/object/sign/images/inputs/1789025645465_3cxrxqh50.jpg?token=eyJraWQiOiI0NWE1YWU1ZS0xNzg4LTRiMWYtYWM5OC1hMjgwNmQ2OTM4ZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW5wdXRzLzE3ODkwMjU2NDU0NjVfM2N4cnhxaDUwLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODkwMjU2NjEsImV4cCI6MTgyMDU2MTY2MX0.7Z2SxHU1HUUigndf9hEC29AjIC4qhglj69kgd8TGxAE" alt="Jaya welcoming you to her coaching practice" width="1024" height="1536" loading="lazy">
+                        </div>
+                        <span class="intro-stage-label">A space to become</span>
+                        <div class="intro-caption" id="intro-caption">The life you truly desire begins with you.</div>
+                        <span class="intro-stage-flourish">Clarify. Align. Transform.</span>
+                    </div>
+                    <div class="intro-controls" role="group" aria-label="Introduction playback controls">
+                        <button class="player-button" type="button" id="intro-play" aria-label="Play introduction"><svg class="icon" aria-hidden="true"><use id="intro-play-icon" href="#i-play"/></svg></button>
+                        <label class="visually-hidden" for="intro-progress">Introduction progress in seconds</label>
+                        <input class="intro-progress" type="range" id="intro-progress" min="0" max="40" value="0" step=".1">
+                        <span class="intro-time" id="intro-time">0:00 / 0:40</span>
+                        <button class="narration-button" type="button" id="intro-narration" aria-pressed="false" title="Optional browser-generated narration">Narration off</button>
+                    </div>
+                    <div class="intro-bottom">
+                        <p>40-second animated introduction.<br>Optional narration uses your browser’s voice.</p>
+                        <button class="button button-primary" type="button" data-book="clarity">Let’s connect<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JOURNAL / BLOG -->
+    <div class="modal fade journal-modal" id="journalModal" tabindex="-1" aria-labelledby="journal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div><span class="modal-eyebrow">The Manifest Journal</span><h2 class="modal-title" id="journal-title">Notes for your next chapter.</h2></div>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close journal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-subtitle">Small shifts. Meaningful reflections. A little inspiration for your everyday life.</p>
+                    <div class="accordion" id="journal-accordion">
+                        <article class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#journal-one" aria-expanded="true" aria-controls="journal-one">A five-minute morning practice for clarity</button></h3>
+                            <div id="journal-one" class="accordion-collapse collapse show" data-bs-parent="#journal-accordion">
+                                <div class="accordion-body">
+                                    <p>Before you reach for your phone, give yourself five quiet minutes. Put your feet on the floor, soften your shoulders, and take three comfortable breaths.</p>
+                                    <p>Write down one thing you’re grateful for, one feeling you’d like to bring into your day, and one small action that supports it. Keep the action gentle and specific: a walk, an honest conversation, or ten uninterrupted minutes on something that matters.</p>
+                                    <p>Clarity doesn’t always arrive as a big revelation. Sometimes it begins with one intentional choice.</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#journal-two" aria-expanded="false" aria-controls="journal-two">Notice the belief. Choose a kinder story.</button></h3>
+                            <div id="journal-two" class="accordion-collapse collapse" data-bs-parent="#journal-accordion">
+                                <div class="accordion-body">
+                                    <p>When you notice “I can’t” or “I’m not enough,” pause before treating the thought as a fact. Ask yourself: Where did I learn this? Is it always true? What would I say to a friend feeling this way?</p>
+                                    <p>Try a more balanced thought you can genuinely believe: “I’m learning,” “I can ask for support,” or “I can take one step without knowing the whole path.”</p>
+                                    <p>You don’t need to force constant positivity. A compassionate, realistic perspective is a powerful place to begin.</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#journal-three" aria-expanded="false" aria-controls="journal-three">The quiet power of an evening reset</button></h3>
+                            <div id="journal-three" class="accordion-collapse collapse" data-bs-parent="#journal-accordion">
+                                <div class="accordion-body">
+                                    <p>At the end of the day, take a moment to put down what you’ve been carrying. Turn away from your screen, breathe naturally, and name one moment you appreciated.</p>
+                                    <p>In your journal, complete these three sentences: “Today I learned…,” “I’m ready to let go of…,” and “Tomorrow I can support myself by…”.</p>
+                                    <p>Let your answers be imperfect. This is not another task to get right; it is a small act of returning to yourself.</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <button class="button button-primary mt-4" type="button" data-book="clarity">Explore your own next chapter<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (() => {
+            "use strict";
+
+            const $ = (selector, root = document) => root.querySelector(selector);
+            const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const contactEmail = "hello@manifestwithjaya.com";
+
+            /* ------------------------------------------------------------
+               Navigation: mobile collapse, section states, healing focus.
+               ------------------------------------------------------------ */
+            const navigation = $("#main-navigation");
+            const closeNavigation = () => {
+                if (window.innerWidth < 992 && navigation.classList.contains("show")) {
+                    bootstrap.Collapse.getOrCreateInstance(navigation, { toggle: false }).hide();
+                }
+            };
+
+            $$(".nav-link-custom, .nav-book").forEach(link => {
+                link.addEventListener("click", closeNavigation);
+            });
+
+            const setActiveNav = id => {
+                $$(".nav-link-custom").forEach(link => {
+                    const active = link.getAttribute("href") === "#" + id && !link.hasAttribute("data-healing");
+                    link.classList.toggle("active", active);
+                    if (active) link.setAttribute("aria-current", "page");
+                    else link.removeAttribute("aria-current");
+                });
+            };
+
+            $$('a[href^="#"]').forEach(link => {
+                if (link.hasAttribute("data-bs-toggle") || link.hasAttribute("data-bs-dismiss")) return;
+                link.addEventListener("click", event => {
+                    const target = document.getElementById(link.getAttribute("href").slice(1));
+                    if (!target) return;
+                    event.preventDefault();
+                    closeNavigation();
+                    target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+                });
+            });
+
+            $$("[data-healing]").forEach(link => {
+                link.addEventListener("click", () => {
+                    const healingCards = [$("#chakra-healing"), $("#emotional-healing")];
+                    healingCards.forEach(card => card.classList.add("is-highlighted"));
+                    setTimeout(() => healingCards.forEach(card => card.classList.remove("is-highlighted")), 3500);
+                });
+            });
+
+            /* ------------------------------------------------------------
+               Scroll reveals: progressive enhancement and reduced motion.
+               ------------------------------------------------------------ */
+            if ("IntersectionObserver" in window) {
+                document.documentElement.classList.add("js-ready");
+                const revealObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("is-visible");
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: .06, rootMargin: "0px 0px 25px 0px" });
+
+                $$(".reveal").forEach((element, index) => {
+                    if (element.classList.contains("transformation-card") || element.classList.contains("program-card")) {
+                        element.style.transitionDelay = reducedMotion ? "0ms" : `${(index % 6) * 45}ms`;
+                    }
+                    revealObserver.observe(element);
+                });
+
+                const sectionObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) setActiveNav(entry.target.id);
+                    });
+                }, { rootMargin: "-10% 0px -55% 0px", threshold: 0 });
+                ["home", "about", "programs", "testimonials", "contact"].forEach(id => {
+                    const section = document.getElementById(id);
+                    if (section) sectionObserver.observe(section);
+                });
+            }
+
+            /* ------------------------------------------------------------
+               Shared modal transition utility.
+               ------------------------------------------------------------ */
+            const bookingElement = $("#bookingModal");
+            const detailElement = $("#detailModal");
+            const bookingModal = new bootstrap.Modal(bookingElement);
+            const detailModal = new bootstrap.Modal(detailElement);
+
+            function showAfterClosingCurrent(modal) {
+                const current = $(".modal.show");
+                if (current && current !== modal._element) {
+                    current.addEventListener("hidden.bs.modal", () => modal.show(), { once: true });
+                    bootstrap.Modal.getInstance(current).hide();
+                } else {
+                    modal.show();
+                }
+            }
+
+            /* ------------------------------------------------------------
+               Booking request: accessible validation + real email handoff.
+               ------------------------------------------------------------ */
+            const bookingForm = $("#booking-form");
+            const bookingDate = $("#booking-date");
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateValue = date => {
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+            };
+            bookingDate.min = dateValue(tomorrow);
+
+            let timezone = "your local time zone";
+            try { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone.replaceAll("_", " "); } catch (_) {}
+            $("#booking-timezone").textContent = timezone;
+
+            function openBooking(type = "clarity", focus = "") {
+                closeNavigation();
+                bookingForm.reset();
+                bookingForm.classList.remove("was-validated");
+                $("#booking-name").setCustomValidity("");
+                bookingForm.hidden = false;
+                $("#booking-confirmation").hidden = true;
+                $("#booking-type").value = type;
+                const community = type === "community";
+                $("#booking-title").textContent = community ? "Bring your community together." : "Let’s begin with a conversation.";
+                $("#booking-eyebrow").textContent = community ? "A shared space for growth" : "A little clarity. A beautiful beginning.";
+                $("#booking-subtitle").textContent = community
+                    ? "Tell me a little about your club, organisation, or team. We’ll explore a meaningful workshop tailored to your community."
+                    : "A free, confidential 30-minute clarity call to explore where you are and what you’d love to change.";
+                $("#booking-message").placeholder = community
+                    ? "Organisation name, approximate group size, and the kind of session you have in mind…"
+                    : "A little about what brings you here…";
+                if (community) $("#booking-focus").value = "Community Workshop";
+                else if (focus) $("#booking-focus").value = focus;
+                showAfterClosingCurrent(bookingModal);
+            }
+
+            $$("[data-book]").forEach(button => {
+                button.addEventListener("click", () => openBooking(button.dataset.book));
+            });
+
+            $("#booking-name").addEventListener("input", event => {
+                event.target.setCustomValidity(event.target.value.trim().length < 2 ? "Please enter your name." : "");
+            });
+
+            let requestBody = "";
+
+            bookingForm.addEventListener("submit", event => {
+                event.preventDefault();
+                const nameInput = $("#booking-name");
+                nameInput.setCustomValidity(nameInput.value.trim().length < 2 ? "Please enter your name." : "");
+                bookingForm.classList.add("was-validated");
+                if (!bookingForm.checkValidity()) {
+                    const invalid = bookingForm.querySelector(":invalid");
+                    if (invalid) invalid.focus();
+                    return;
+                }
+
+                const name = nameInput.value.trim();
+                const email = $("#booking-email").value.trim();
+                const focus = $("#booking-focus").value;
+                const date = new Date(bookingDate.value + "T12:00:00");
+                const formattedDate = date.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+                const time = $("#booking-time").value;
+                const isCommunity = $("#booking-type").value === "community";
+                const sessionName = isCommunity ? "Community workshop conversation" : "Free 30-minute clarity call";
+                const message = $("#booking-message").value.trim();
+
+                requestBody = [
+                    "Hi Jaya,",
+                    "",
+                    `I’d love to request a ${sessionName.toLowerCase()}.`,
+                    "",
+                    `Name: ${name}`,
+                    `Email: ${email}`,
+                    `Focus: ${focus}`,
+                    `Preferred date: ${formattedDate}`,
+                    `Preferred time: ${time} (${timezone})`,
+                    message ? `\nA little more about me / my community:\n${message}` : "",
+                    "",
+                    "I understand that this time is a request and is subject to your confirmation.",
+                    "I agree to be contacted about this session.",
+                    "",
+                    "Thank you!"
+                ].filter(line => line !== undefined).join("\n");
+
+                $("#confirmation-title").textContent = `Your request is ready, ${name.split(" ")[0]}.`;
+                $("#booking-summary").textContent = `${sessionName}\n${focus}\n${formattedDate} · ${time}\nTime zone: ${timezone}\nReply to: ${email}`;
+                $("#booking-email-link").href = `mailto:${contactEmail}?subject=${encodeURIComponent(isCommunity ? "Community workshop request" : "Free clarity call request")}&body=${encodeURIComponent(requestBody)}`;
+                $("#copy-status").textContent = "Nothing has been sent yet. Your appointment is confirmed only after Jaya replies.";
+                $("#copy-request").textContent = "Copy details";
+                bookingForm.hidden = true;
+                $("#booking-confirmation").hidden = false;
+                $("#booking-email-link").focus();
+            });
+
+            $("#edit-booking").addEventListener("click", () => {
+                $("#booking-confirmation").hidden = true;
+                bookingForm.hidden = false;
+                $("#booking-name").focus();
+            });
+
+            $("#copy-request").addEventListener("click", async () => {
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(requestBody);
+                    } else {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = requestBody;
+                        textArea.style.position = "fixed";
+                        textArea.style.opacity = "0";
+                        bookingElement.appendChild(textArea);
+                        textArea.select();
+                        const copied = document.execCommand("copy");
+                        textArea.remove();
+                        if (!copied) throw new Error("Copy unavailable");
+                    }
+                    $("#copy-request").textContent = "Copied!";
+                    $("#copy-status").textContent = `Details copied. Paste them into an email to ${contactEmail}.`;
+                } catch (_) {
+                    $("#copy-status").textContent = "Your browser couldn’t copy automatically. Select the summary above, or use the email button.";
+                }
+            });
+
+            /* ------------------------------------------------------------
+               Reusable program / transformation content.
+               ------------------------------------------------------------ */
+            const programData = {
+                individual: {
+                    title: "One-on-one coaching",
+                    icon: "person",
+                    description: "A personal, supportive space to understand what’s holding you back and begin creating a life that feels more aligned with who you are.",
+                    features: ["Personalised sessions with Jaya around your goals.", "Mindset reflection, intentional action, and practices for everyday life.", "FREE access to Daily Magic Practice (DMP)."],
+                    meta: "Personalised support · Online sessions",
+                    focus: "Personal Growth"
+                },
+                group: {
+                    title: "Grow together. Transform together.",
+                    icon: "group",
+                    description: "You don’t have to figure everything out alone. Group coaching brings reflection, shared learning, and meaningful connection into your growth journey.",
+                    features: ["Guided sessions in a supportive community.", "Practical mindset exercises and shared reflections.", "Encouragement and accountability as you take your next steps."],
+                    meta: "Small-group experience · Ask about the next intake",
+                    focus: "Personal Growth"
+                },
+                daily: {
+                    title: "Daily Magic Practice",
+                    icon: "star",
+                    description: "Bring a little more intention into every day with simple, repeatable practices that fit into real life.",
+                    features: ["Gratitude, journaling, and clear daily intentions.", "Gentle reflection to notice and reframe limiting beliefs.", "Consistent small actions that support your personal goals."],
+                    meta: "Everyday practices · Beginner friendly",
+                    focus: "Mindset"
+                },
+                chakra: {
+                    title: "Chakra healing",
+                    icon: "lotus",
+                    description: "A gentle space for self-awareness, relaxation, and exploring the traditional chakra framework through guided practices.",
+                    features: ["Guided grounding and mindful awareness.", "Explore areas where you feel disconnected or out of balance.", "Personal reflection and simple practices to take home."],
+                    meta: "Guided energy practice · Individual support",
+                    focus: "Energy Healing",
+                    note: true
+                },
+                eft: {
+                    title: "Ho’oponopono & EFT",
+                    icon: "heart",
+                    description: "Explore practices of forgiveness, self-compassion, and emotional awareness in a calm, supportive setting.",
+                    features: ["An introduction to Ho’oponopono reflection.", "Guided Emotional Freedom Techniques (tapping).", "Gentle practices for meeting your emotions with greater kindness."],
+                    meta: "Emotional well-being · Guided practice",
+                    focus: "Energy Healing",
+                    note: true
+                },
+                overview: {
+                    title: "There’s a path that’s right for you.",
+                    icon: "lotus",
+                    description: "Whether you’re looking for personal guidance, a like-minded community, or a simple daily practice, we can begin where you are.",
+                    features: ["One-on-one coaching — personalised support with Jaya.", "Group coaching — learn and grow in community.", "Daily Magic Practice — bring intention into your everyday life.", "Chakra healing, Ho’oponopono & EFT — guided well-being practices."],
+                    meta: "Not sure which to choose? Start with a free clarity call.",
+                    focus: "Finding clarity"
+                }
+            };
+
+            const topicData = {
+                relationships: { title: "Relationships", icon: "heart", description: "Create space for healthier patterns, stronger boundaries, and deeper connection — with yourself and with others.", features: ["Notice recurring relationship patterns without judging yourself.", "Explore your needs, boundaries, and communication.", "Take intentional steps toward more meaningful connection."], focus: "Relationships" },
+                money: { title: "Money & Abundance", icon: "rupee", description: "Explore your relationship with money and the beliefs that influence your confidence, choices, and sense of possibility.", features: ["Identify inherited stories and unhelpful assumptions.", "Develop a grounded, possibility-oriented mindset.", "Connect clear intentions with practical action."], focus: "Money & Abundance" },
+                career: { title: "Career & Success", icon: "briefcase", description: "Find greater clarity around what matters to you professionally and build confidence in your next step.", features: ["Reconnect with your strengths and personal values.", "Reflect on uncertainty, comparison, or self-doubt.", "Create clear, manageable actions for your career journey."], focus: "Career & Success" },
+                health: { title: "Health & Well-being", icon: "lotus", description: "Make room for restorative routines and a kinder, more balanced relationship with yourself.", features: ["Explore mindful habits that fit your everyday life.", "Notice the connection between stress, thoughts, and routines.", "Create space for rest, reflection, and self-care."], focus: "Health & Well-being", note: true },
+                mindset: { title: "Mindset", icon: "brain", description: "Become more aware of the stories you tell yourself, and choose beliefs that support growth rather than keep you stuck.", features: ["Recognize limiting thoughts and recurring inner narratives.", "Practice more compassionate, realistic reframing.", "Build confidence through small, consistent actions."], focus: "Mindset" },
+                growth: { title: "Personal Growth", icon: "meditate", description: "Reconnect with yourself and begin stepping into the version of you that feels more authentic, present, and intentional.", features: ["Clarify your values and the life you want to create.", "Explore what you’re ready to release or change.", "Choose meaningful next steps with personal support."], focus: "Personal Growth" }
+            };
+
+            let detailFocus = "Finding clarity";
+
+            function openDetail(data, isTopic) {
+                $("#detail-title").textContent = data.title;
+                $("#detail-eyebrow").textContent = isTopic ? "What are you ready to transform?" : "My programs & offerings";
+                $("#detail-icon-use").setAttribute("href", `#i-${data.icon}`);
+                $("#detail-description").textContent = data.description;
+                const features = $("#detail-features");
+                features.replaceChildren();
+                data.features.forEach(feature => {
+                    const li = document.createElement("li");
+                    li.textContent = feature;
+                    features.appendChild(li);
+                });
+                $("#detail-meta").textContent = data.meta || "A thoughtful place to begin: your free clarity call.";
+                $("#detail-note").hidden = !data.note;
+                detailFocus = data.focus;
+                detailModal.show();
+            }
+
+            $$("[data-program]").forEach(button => button.addEventListener("click", () => openDetail(programData[button.dataset.program], false)));
+            $$("[data-topic]").forEach(button => button.addEventListener("click", () => openDetail(topicData[button.dataset.topic], true)));
+            $("#detail-book").addEventListener("click", () => openBooking("clarity", detailFocus));
+            $('a[data-bs-dismiss="modal"]', detailElement).addEventListener("click", event => {
+                event.preventDefault();
+                detailElement.addEventListener("hidden.bs.modal", () => {
+                    $("#programs").scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+                }, { once: true });
+            });
+
+            /* ------------------------------------------------------------
+               Testimonial carousel: original reviews only, circular order.
+               Keyboard, touch gestures, dots, and responsive visible count.
+               ------------------------------------------------------------ */
+            const track = $("#testimonial-track");
+            const testimonialWindow = $(".testimonial-window");
+            const originals = $$(".testimonial-card", track).map(card => card.cloneNode(true));
+            const dotsContainer = $(".carousel-dots");
+            let testimonialIndex = 0;
+            let carouselAnimating = false;
+
+            const visibleTestimonials = () => window.innerWidth < 576 ? 1 : window.innerWidth < 992 ? 2 : 3;
+
+            originals.forEach((_, index) => {
+                const dot = document.createElement("button");
+                dot.type = "button";
+                dot.className = "carousel-dot" + (index === 0 ? " active" : "");
+                dot.setAttribute("aria-label", `Start with testimonial ${index + 1}`);
+                dot.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+                dot.addEventListener("click", () => renderTestimonials(index, true));
+                dotsContainer.appendChild(dot);
+            });
+
+            function renderTestimonials(index, announce = false) {
+                testimonialIndex = (index + originals.length) % originals.length;
+                track.style.transition = "none";
+                track.style.transform = "translateX(0)";
+                track.replaceChildren();
+
+                for (let offset = 0; offset < originals.length; offset++) {
+                    const clone = originals[(testimonialIndex + offset) % originals.length].cloneNode(true);
+                    clone.setAttribute("aria-hidden", offset < visibleTestimonials() ? "false" : "true");
+                    track.appendChild(clone);
+                }
+
+                $$(".carousel-dot", dotsContainer).forEach((dot, dotIndex) => {
+                    dot.classList.toggle("active", dotIndex === testimonialIndex);
+                    dot.setAttribute("aria-pressed", String(dotIndex === testimonialIndex));
+                });
+
+                if (announce) {
+                    const person = $(".testimonial-person strong", track).textContent.replace("– ", "");
+                    $("#testimonial-status").textContent = `Showing ${visibleTestimonials()} testimonial${visibleTestimonials() > 1 ? "s" : ""}, starting with ${person}.`;
+                    if (!reducedMotion) track.animate([{ opacity: .35 }, { opacity: 1 }], { duration: 320, easing: "ease-out" });
+                }
+                carouselAnimating = false;
+            }
+
+            function moveTestimonials(direction) {
+                if (carouselAnimating) return;
+                carouselAnimating = true;
+                renderTestimonials(testimonialIndex + direction, true);
+            }
+
+            $(".carousel-prev").addEventListener("click", () => moveTestimonials(-1));
+            $(".carousel-next").addEventListener("click", () => moveTestimonials(1));
+            testimonialWindow.addEventListener("keydown", event => {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    event.preventDefault();
+                    moveTestimonials(event.key === "ArrowRight" ? 1 : -1);
+                }
+            });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            testimonialWindow.addEventListener("touchstart", event => {
+                touchStartX = event.changedTouches[0].clientX;
+                touchStartY = event.changedTouches[0].clientY;
+            }, { passive: true });
+            testimonialWindow.addEventListener("touchend", event => {
+                const dx = event.changedTouches[0].clientX - touchStartX;
+                const dy = event.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) moveTestimonials(dx < 0 ? 1 : -1);
+            }, { passive: true });
+
+            let resizeTimer;
+            window.addEventListener("resize", () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => renderTestimonials(testimonialIndex), 120);
+            }, { passive: true });
+            renderTestimonials(0);
+
+            /* ------------------------------------------------------------
+               Newsletter: native validation and explicit email opt-in.
+               ------------------------------------------------------------ */
+            $("#newsletter-form").addEventListener("submit", event => {
+                event.preventDefault();
+                const input = $("#newsletter-email");
+                if (!input.reportValidity()) return;
+                const feedback = $("#newsletter-feedback");
+                feedback.replaceChildren(document.createTextNode("One last step: "));
+                const link = document.createElement("a");
+                link.textContent = "send your subscription request";
+                link.href = `mailto:${contactEmail}?subject=${encodeURIComponent("Newsletter subscription request")}&body=${encodeURIComponent(`Hi Jaya,\n\nI’d like to receive your tips, updates, and inspiration by email.\n\nPlease subscribe: ${input.value.trim()}\n\nThank you!`)}`;
+                feedback.append(link, document.createTextNode(". You’ll join after your request is confirmed."));
+                feedback.hidden = false;
+                link.focus();
+            });
+
+            /* ------------------------------------------------------------
+               Animated intro: actual playback, seek, captions, narration.
+               ------------------------------------------------------------ */
+            const introElement = $("#introModal");
+            const introDuration = 40;
+            const introSegments = [
+                { title: "The life you truly desire begins with you.", speech: "Welcome to Manifest with Jaya. A space to clarify your mind, align your energy, and create a life that feels like you." },
+                { title: "Clarify your mind. Reconnect with what matters.", speech: "Start by slowing down. Notice your thoughts, explore your beliefs, and reconnect with what really matters to you." },
+                { title: "Small, intentional practices. Meaningful change.", speech: "Through coaching and simple daily practices, you can begin taking thoughtful steps toward your personal goals." },
+                { title: "You don’t have to walk this path alone.", speech: "Explore personalised coaching, a supportive community, and gentle practices for self awareness and emotional well being." },
+                { title: "Let’s discover your next chapter, together.", speech: "You don't need to have every answer. Begin with a free clarity call, and let's explore your next chapter together." }
+            ];
+
+            let introElapsed = 0;
+            let introPlaying = false;
+            let introLastFrame = 0;
+            let introFrame = 0;
+            let introSegment = -1;
+            let narrationOn = false;
+            const speechAvailable = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+
+            if (!speechAvailable) $("#intro-narration").hidden = true;
+
+            function speakSegment(index) {
+                if (!speechAvailable || !narrationOn || !introPlaying) return;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(introSegments[index].speech);
+                utterance.lang = "en-IN";
+                utterance.rate = .98;
+                const voices = window.speechSynthesis.getVoices();
+                const preferred = voices.find(voice => voice.lang === "en-IN") || voices.find(voice => voice.lang.startsWith("en"));
+                if (preferred) utterance.voice = preferred;
+                window.speechSynthesis.speak(utterance);
+            }
+
+            function updateIntro() {
+                const segment = Math.min(introSegments.length - 1, Math.floor(introElapsed / 8));
+                if (segment !== introSegment) {
+                    introSegment = segment;
+                    const caption = $("#intro-caption");
+                    caption.textContent = introSegments[segment].title;
+                    caption.classList.remove("is-entering");
+                    void caption.offsetWidth;
+                    caption.classList.add("is-entering");
+                    speakSegment(segment);
+                }
+                $("#intro-progress").value = introElapsed;
+                $("#intro-time").textContent = `0:${String(Math.floor(introElapsed)).padStart(2, "0")} / 0:40`;
+                $("#intro-progress").setAttribute("aria-valuetext", `${Math.floor(introElapsed)} of 40 seconds`);
+                $("#intro-play-icon").setAttribute("href", introPlaying ? "#i-pause" : "#i-play");
+                $("#intro-play").setAttribute("aria-label", introPlaying ? "Pause introduction" : introElapsed >= introDuration ? "Replay introduction" : "Play introduction");
+            }
+
+            function pauseIntro() {
+                introPlaying = false;
+                cancelAnimationFrame(introFrame);
+                if (speechAvailable) window.speechSynthesis.cancel();
+                updateIntro();
+            }
+
+            function introTick(timestamp) {
+                if (!introPlaying) return;
+                if (introLastFrame) introElapsed += Math.min((timestamp - introLastFrame) / 1000, .2);
+                introLastFrame = timestamp;
+                if (introElapsed >= introDuration) {
+                    introElapsed = introDuration;
+                    pauseIntro();
+                    return;
+                }
+                updateIntro();
+                introFrame = requestAnimationFrame(introTick);
+            }
+
+            function playIntro() {
+                if (introElapsed >= introDuration) { introElapsed = 0; introSegment = -1; }
+                introPlaying = true;
+                introLastFrame = 0;
+                updateIntro();
+                speakSegment(Math.max(0, introSegment));
+                introFrame = requestAnimationFrame(introTick);
+            }
+
+            $("#intro-play").addEventListener("click", () => introPlaying ? pauseIntro() : playIntro());
+            $("#intro-progress").addEventListener("input", event => {
+                introElapsed = Number(event.target.value);
+                introLastFrame = 0;
+                introSegment = -1;
+                updateIntro();
+                if (introElapsed >= introDuration) pauseIntro();
+            });
+            $("#intro-narration").addEventListener("click", () => {
+                narrationOn = !narrationOn;
+                $("#intro-narration").setAttribute("aria-pressed", String(narrationOn));
+                $("#intro-narration").textContent = narrationOn ? "Narration on" : "Narration off";
+                if (narrationOn) speakSegment(Math.max(0, introSegment));
+                else if (speechAvailable) window.speechSynthesis.cancel();
+            });
+            introElement.addEventListener("shown.bs.modal", () => {
+                introElapsed = 0;
+                introSegment = -1;
+                if (!reducedMotion) playIntro();
+                else updateIntro();
+            });
+            introElement.addEventListener("hide.bs.modal", pauseIntro);
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden && introPlaying) pauseIntro();
+            });
+        })();
+    </script>
+</body>
+</html>
