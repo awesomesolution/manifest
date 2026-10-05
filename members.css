@@ -1,0 +1,436 @@
+/* ==========================================================================
+   MANIFEST WITH JAYA — RECORDED SESSIONS & MEMBER PORTAL STYLES
+   ========================================================================== */
+
+.members-hero {
+    position: relative;
+    padding: clamp(48px, 6vw, 76px) 0 clamp(32px, 4vw, 48px);
+    background: linear-gradient(180deg, #fcf7f2 0%, #fff 100%);
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.members-hero-copy {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.members-hero-copy h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--burgundy);
+    margin: 12px 0 16px;
+}
+
+.members-hero-copy h1 span {
+    font-family: var(--font-script);
+    color: var(--primary);
+    font-weight: 400;
+    display: inline-block;
+    padding-left: 4px;
+}
+
+.members-hero-lead {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   LOGIN GATE CARD
+   -------------------------------------------------------------------------- */
+.members-gate-section {
+    padding: clamp(40px, 6vw, 64px) 0;
+}
+
+.members-gate-card {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(28px, 4vw, 44px);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.members-gate-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: var(--shadow-sm);
+}
+
+.members-gate-card h2 {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--burgundy);
+    margin: 0 0 10px;
+}
+
+.members-gate-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0 0 24px;
+}
+
+.members-gate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.members-gate-form .form-control {
+    height: 48px;
+    font-size: 14px;
+    border-radius: var(--radius-sm);
+    border-color: #e4d7d0;
+    padding: 10px 16px;
+    text-align: center;
+}
+
+.members-gate-form .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(169, 61, 93, 0.15);
+}
+
+.members-status-msg {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    line-height: 1.5;
+    display: none;
+}
+
+.members-status-msg.is-error {
+    display: block;
+    background: #fdf2f2;
+    color: #b71c1c;
+    border: 1px solid #f8d7da;
+}
+
+.members-status-msg.is-expired {
+    display: block;
+    background: #fff8e1;
+    color: #8d6e15;
+    border: 1px solid #ffe082;
+}
+
+.members-status-msg.is-success {
+    display: block;
+    background: #edf7ed;
+    color: #1e4620;
+    border: 1px solid #c8e6c9;
+}
+
+.members-gate-help {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.members-gate-help a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   MEMBER PORTAL DASHBOARD (ACTIVE)
+   -------------------------------------------------------------------------- */
+.members-portal-view {
+    padding: clamp(32px, 5vw, 56px) 0;
+}
+
+.members-user-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.members-user-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.members-user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a93d5d, #8e2d4c);
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.members-user-details h3 {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.members-user-details p {
+    margin: 2px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.subscription-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.subscription-badge.expired {
+    background: #ffebee;
+    color: #c62828;
+    border-color: #ffcdd2;
+}
+
+.portal-sessions-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.portal-sessions-heading h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--burgundy);
+    margin: 0;
+}
+
+.portal-sessions-heading p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Sessions Grid */
+.portal-sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.session-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.session-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.session-video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #1d1217;
+}
+
+.session-video-wrapper iframe,
+.session-video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.session-card-content {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.session-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.session-card-title {
+    font-family: var(--font-heading);
+    font-size: 21px;
+    color: var(--burgundy);
+    line-height: 1.3;
+    margin: 0 0 10px;
+}
+
+.session-card-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-light);
+    margin: 0 0 16px;
+}
+
+.session-takeaways {
+    margin: 0 0 18px;
+    padding-left: 20px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.session-takeaways li {
+    margin-bottom: 6px;
+}
+
+.session-actions-row {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid #f6ece6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   INSTRUCTOR / ADMIN MANAGEMENT PANEL
+   -------------------------------------------------------------------------- */
+.admin-section {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 2px dashed var(--border);
+}
+
+.admin-toggle-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.admin-panel {
+    background: #fffcf9;
+    border: 1px solid #eedcd5;
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 36px);
+    box-shadow: var(--shadow-sm);
+    display: none;
+}
+
+.admin-panel.is-open {
+    display: block;
+    animation: fadeInTab 0.3s ease;
+}
+
+.admin-panel h3 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    color: var(--burgundy);
+    margin: 0 0 14px;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.admin-box {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+}
+
+.admin-table {
+    width: 100%;
+    font-size: 12.5px;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f3e8e2;
+    text-align: left;
+}
+
+.admin-table th {
+    background: var(--blush);
+    color: var(--burgundy);
+    font-weight: 700;
+}
+
+.admin-delete-btn {
+    color: #d32f2f;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 11.5px;
+    border: 1px solid #ffcdd2;
+    background: #ffebee;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.admin-delete-btn:hover {
+    background: #d32f2f;
+    color: #fff;
+}
+
+@media (max-width: 860px) {
+    .portal-sessions-grid {
+        grid-template-columns: 1fr;
+    }
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+}

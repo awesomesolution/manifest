@@ -1,0 +1,143 @@
+/* ==========================================================================
+   MANIFEST WITH JAYA — IMPORTANT DISCLAIMER PAGE SPECIFIC STYLES
+   (Inherits base tokens, header, navigation, and footer from site-shared.css)
+   ========================================================================== */
+
+.disclaimer-hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(var(--header-h) + clamp(36px, 5vw, 64px));
+    padding-bottom: clamp(64px, 8vw, 96px);
+    background: linear-gradient(125deg, #fcf7f2 0%, #fffaf6 58%, #f6e8df 100%);
+}
+
+.disclaimer-layout {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin-inline: auto;
+}
+
+.disclaimer-heading {
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.disclaimer-heading h1 {
+    margin: 12px 0 10px;
+    color: var(--burgundy);
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5.2vw, 4.2rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+}
+
+.disclaimer-heading > p {
+    max-width: 620px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.disclaimer-card {
+    position: relative;
+    padding: clamp(28px, 5vw, 52px);
+    border: 1px solid #ebd8d0;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--shadow-md);
+}
+
+.disclaimer-mark {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    margin: 0 auto 24px;
+    border: 1px solid rgba(195, 154, 86, 0.55);
+    border-radius: 50%;
+    color: var(--primary);
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+    background: #fffdfa;
+}
+
+.disclaimer-card p {
+    margin: 0 0 18px;
+    color: var(--text-light);
+    font-size: 15.5px;
+    line-height: 1.7;
+}
+
+.disclaimer-card strong {
+    color: var(--burgundy);
+}
+
+.disclaimer-card .disclaimer-acknowledgement {
+    margin: 28px 0 0;
+    padding: 16px 20px;
+    border-left: 3px solid var(--gold);
+    color: var(--burgundy);
+    background: var(--cream);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-weight: 600;
+    font-size: 14.5px;
+}
+
+.disclaimer-back {
+    display: table;
+    margin: 28px auto 0;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.disclaimer-back:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transform: translateX(-3px);
+}
+
+.disclaimer-flourish {
+    position: absolute;
+    color: rgba(195, 154, 86, 0.2);
+    pointer-events: none;
+}
+
+.disclaimer-flourish-one {
+    top: 8%;
+    right: 5%;
+    font-size: 7rem;
+}
+
+.disclaimer-flourish-two {
+    bottom: 5%;
+    left: 4%;
+    font-size: 5rem;
+}
+
+@media (max-width: 767.98px) {
+    .disclaimer-hero {
+        padding-top: calc(var(--header-h-mobile) + 28px);
+        padding-bottom: 56px;
+    }
+
+    .disclaimer-heading {
+        margin-bottom: 24px;
+    }
+
+    .disclaimer-flourish-one { top: 2%; right: 1%; font-size: 4rem; }
+    .disclaimer-flourish-two { bottom: 2%; left: 2%; font-size: 3rem; }
+}
+
+@media (max-width: 480px) {
+    .disclaimer-card {
+        padding: 24px 18px;
+    }
+}

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#a93d5d">
+    <meta name="description" content="Weekly recorded coaching sessions, energetic alignments, and guided meditation practices for enrolled Manifest with Jaya members.">
+    <title>Recorded Sessions &amp; Member Portal | Manifest with Jaya</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./site-shared.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./members.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="./site-shared.js" defer></script>
+    <script src="./members.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Universal Header -->
+    <header class="site-header is-fixed" id="site-header">
+        <div class="site-container header-inner">
+            <a class="brand" href="index.html#home" aria-label="Manifest with Jaya — home">
+                <img class="brand-logo" src="./assets/manifest-logo-mark.webp" alt="" width="42" height="42">
+                <span class="brand-name">Manifest with Jaya<small>Coaching · Healing</small></span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-navigation">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <nav class="site-navigation" id="site-navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a class="nav-link" href="index.html">Home</a></li>
+                    <li><a class="nav-link" href="story.html">My Story</a></li>
+                    <li><a class="nav-link" href="services.html">Services</a></li>
+                    <li><a class="nav-link active" href="members.html" aria-current="page">Members</a></li>
+                    <li><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="button button-primary header-cta" type="button" data-book="clarity">Book a free<br>clarity call <span class="cta-arrow" aria-hidden="true">→</span></button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="members-hero" aria-labelledby="members-hero-title">
+            <div class="site-container">
+                <div class="members-hero-copy">
+                    <span class="eyebrow">Exclusive Student &amp; Client Portal</span>
+                    <h1 id="members-hero-title">Weekly Recorded Sessions <span>&amp; Guided Practices</span></h1>
+                    <p class="members-hero-lead">Access your weekly coaching replays, energetic alignments, and mindset deep-dives. Fresh recordings are updated every week for active subscribers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 01. LOGIN / ACCESS GATE -->
+        <section class="members-gate-section" id="gate-section">
+            <div class="site-container">
+                <div class="members-gate-card">
+                    <div class="members-gate-icon" aria-hidden="true">🔑</div>
+                    <h2>Member Access</h2>
+                    <p>Enter the email address you used during your program enrollment to access this week’s recordings.</p>
+
+                    <form class="members-gate-form" id="member-login-form">
+                        <label class="visually-hidden" for="member-email">Enrolled Email Address</label>
+                        <input type="email" class="form-control" id="member-email" name="email" placeholder="Enter your enrolled email (e.g. student@example.com)" required autocomplete="email">
+                        <button class="button button-primary w-100" type="submit">Enter Member Portal →</button>
+                    </form>
+
+                    <div class="members-status-msg" id="member-status-msg" role="alert"></div>
+
+                    <div class="members-gate-help">
+                        <p class="mb-1">Not enrolled in a program or expired? <a href="#enrollModal" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll or Renew via Google Form</a></p>
+                        <small class="text-muted d-block mt-2">Demo testing: <code>student@example.com</code> (Active) · <code>expired@example.com</code> (Expired)</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02. MEMBER PORTAL DASHBOARD (ACTIVE) -->
+        <section class="members-portal-view" id="portal-view" style="display:none;">
+            <div class="site-container">
+                <!-- User Status Banner -->
+                <div class="members-user-banner">
+                    <div class="members-user-info">
+                        <div class="members-user-avatar" aria-hidden="true">✨</div>
+                        <div class="members-user-details">
+                            <h3 id="user-email-display">client@example.com</h3>
+                            <p><span class="subscription-badge" id="user-expiry-display">Subscription Active</span></p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="button button-outline" type="button" data-bs-toggle="modal" data-bs-target="#enrollModal" style="padding:8px 16px;min-height:40px;font-size:12px;">Renew / Add Program</button>
+                        <button class="button button-outline" type="button" id="member-logout-btn" style="padding:8px 16px;min-height:40px;font-size:12px;">Log Out</button>
+                    </div>
+                </div>
+
+                <!-- Sessions Heading -->
+                <div class="portal-sessions-heading">
+                    <div>
+                        <h2>This Week’s Recorded Sessions</h2>
+                        <p>Watch, reflect, and integrate these practices into your daily life before the next weekly upload.</p>
+                    </div>
+                    <span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:12px;padding:8px 14px;border-radius:999px;">● Active Week</span>
+                </div>
+
+                <!-- Sessions Grid -->
+                <div class="portal-sessions-grid" id="sessions-container">
+                    <!-- Populated dynamically via members.js -->
+                </div>
+
+                <!-- Instructor Admin Trigger -->
+                <div class="admin-section">
+                    <div class="admin-toggle-bar">
+                        <button class="button button-outline" type="button" id="admin-toggle-btn" style="font-size:12px;padding:8px 20px;">⚙ Instructor &amp; Admin Access</button>
+                    </div>
+
+                    <!-- Admin Management Panel -->
+                    <div class="admin-panel" id="admin-panel">
+                        <div class="admin-grid">
+                            <!-- Box 1: Publish New Session -->
+                            <div class="admin-box">
+                                <h3>Upload / Replace Recorded Session</h3>
+                                <p class="text-muted small">Add this week's recorded coaching video or meditation. You can delete previous week's sessions from the list below.</p>
+                                <form id="add-session-form">
+                                    <div class="mb-3">
+                                        <label for="session-title" class="form-label small fw-bold">Session Title</label>
+                                        <input type="text" class="form-control form-control-sm" id="session-title" placeholder="e.g. Week 4: Healing Core Beliefs" required>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <label for="session-date" class="form-label small fw-bold">Date / Label</label>
+                                            <input type="text" class="form-control form-control-sm" id="session-date" placeholder="e.g. Week of Oct 12, 2026">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="session-duration" class="form-label small fw-bold">Duration</label>
+                                            <input type="text" class="form-control form-control-sm" id="session-duration" placeholder="e.g. 52 mins">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="session-video-url" class="form-label small fw-bold">Video Embed URL (YouTube Unlisted, Vimeo, MP4, Google Drive)</label>
+                                        <input type="url" class="form-control form-control-sm" id="session-video-url" placeholder="https://www.youtube-nocookie.com/embed/..." required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="session-desc" class="form-label small fw-bold">Brief Description</label>
+                                        <textarea class="form-control form-control-sm" id="session-desc" rows="2" placeholder="Summary of what was covered in this session..."></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="session-takeaways-input" class="form-label small fw-bold">Key Takeaways (one per line)</label>
+                                        <textarea class="form-control form-control-sm" id="session-takeaways-input" rows="2" placeholder="Step 1: Identifying resistance&#10;Step 2: Guided EFT clearing"></textarea>
+                                    </div>
+                                    <button class="button button-primary w-100" type="submit" style="font-size:12px;padding:8px 16px;">Publish Session to Member Portal</button>
+                                </form>
+
+                                <hr class="my-4">
+                                <h4 class="h6 fw-bold">Active Sessions (Click Delete to Remove Old Weeks):</h4>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Date</th>
+                                                <th>Duration</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-sessions-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Box 2: Manage Student Emails & Subscriptions -->
+                            <div class="admin-box">
+                                <h3>Manage Enrolled Students</h3>
+                                <p class="text-muted small">Students can only login while their subscription is active. When the subscription expires, login is automatically blocked.</p>
+                                <form id="enroll-student-form">
+                                    <div class="mb-3">
+                                        <label for="new-student-email" class="form-label small fw-bold">Student Email</label>
+                                        <input type="email" class="form-control form-control-sm" id="new-student-email" placeholder="student@example.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="new-student-duration" class="form-label small fw-bold">Subscription Access Duration</label>
+                                        <select class="form-select form-select-sm" id="new-student-duration">
+                                            <option value="30">1 Month (30 Days)</option>
+                                            <option value="60">2 Months (60 Days)</option>
+                                            <option value="90">3 Months (90 Days)</option>
+                                            <option value="180">6 Months (180 Days)</option>
+                                            <option value="365">1 Year (365 Days)</option>
+                                        </select>
+                                    </div>
+                                    <button class="button button-primary w-100" type="submit" style="font-size:12px;padding:8px 16px;">Enroll Student / Extend Access</button>
+                                </form>
+
+                                <hr class="my-4">
+                                <h4 class="h6 fw-bold">Enrolled Student Roster:</h4>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Enrolled</th>
+                                                <th>Expires</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-students-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================
+         BOOKING MODAL
+         ================================================================ -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="booking-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div><span class="modal-eyebrow" id="booking-eyebrow">A little clarity. A beautiful beginning.</span><h2 class="modal-title" id="booking-title">Let’s begin with a conversation.</h2></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close booking form"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="booking-form" novalidate>
+                        <p class="modal-subtitle" id="booking-subtitle">A free, confidential 30-minute clarity call to explore where you are and what you’d love to change.</p>
+                        <input type="hidden" id="booking-type" name="type" value="clarity">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="booking-name" class="form-label">Your name <span aria-hidden="true">*</span></label>
+                                <input type="text" class="form-control" id="booking-name" name="name" placeholder="Your full name" autocomplete="name" required minlength="2" maxlength="100">
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-email" class="form-label">Email address <span aria-hidden="true">*</span></label>
+                                <input type="email" class="form-control" id="booking-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-phone" class="form-label">Phone / WhatsApp number <span aria-hidden="true">*</span></label>
+                                <input type="tel" class="form-control" id="booking-phone" name="phone" placeholder="+91 80978 36882" autocomplete="tel" required>
+                                <div class="invalid-feedback">Please enter your phone or WhatsApp number.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-focus" class="form-label" id="booking-focus-label">What would you like support with?</label>
+                                <select class="form-select" id="booking-focus" name="focus">
+                                    <option value="Finding clarity">I’m not sure yet — I’d love some clarity</option>
+                                    <option value="Personal Transformation">Personal Transformation</option>
+                                    <option value="Relationships">Relationships</option>
+                                    <option value="Money & Abundance">Money &amp; Abundance</option>
+                                    <option value="Career & Success">Career &amp; Success</option>
+                                    <option value="Health & Well-being">Health &amp; Well-being</option>
+                                    <option value="Mindset">Mindset</option>
+                                    <option value="Personal Growth">Personal Growth</option>
+                                    <option value="EFT & Emotional Healing">EFT &amp; Emotional Healing</option>
+                                    <option value="Energy Healing">Energy Healing &amp; Chakra Alignment</option>
+                                    <option value="Daily Magic">Daily Magic Practice</option>
+                                    <option value="Group Coaching">Group Coaching</option>
+                                    <option value="Community Workshop">A community or corporate workshop</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-date" class="form-label">Preferred date <span aria-hidden="true">*</span></label>
+                                <input type="date" class="form-control" id="booking-date" name="date" required>
+                                <div class="invalid-feedback">Choose a date from tomorrow onward.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="booking-time" class="form-label">Preferred time <span aria-hidden="true">*</span></label>
+                                <select class="form-select" id="booking-time" name="time" required>
+                                    <option value="">Choose a time</option>
+                                    <option>10:00 AM</option><option>12:00 PM</option><option>3:00 PM</option><option>5:00 PM</option>
+                                </select>
+                                <div class="invalid-feedback">Please choose your preferred time.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="booking-message" class="form-label">Anything you’d like Jaya to know? <span class="fw-normal text-muted">(optional)</span></label>
+                                <textarea class="form-control" id="booking-message" name="message" rows="3" maxlength="1500" placeholder="A little about what brings you here…"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="booking-consent" required>
+                                    <label class="form-check-label" for="booking-consent">I agree to be contacted about this session. My details will only be used for this request.</label>
+                                    <div class="invalid-feedback">Please confirm that Jaya may contact you.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="button button-primary w-100" id="booking-submit-btn" type="submit">
+                                    <span id="booking-btn-text">Book your free clarity call</span>
+                                    <span class="cta-arrow" aria-hidden="true">→</span>
+                                </button>
+                                <p class="form-note">Times are in <span id="booking-timezone">your local time zone</span>. Your details are sent directly to Jaya, and she will reach out to confirm your session.</p>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="booking-confirmation" id="booking-confirmation" hidden>
+                        <div class="booking-success-box">
+                            <div class="booking-success-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+                            <h3 id="confirmation-title">Your Clarity Call Request is Sent!</h3>
+                            <p id="confirmation-desc">Thank you! Your details and preferred time have been delivered directly to Jaya. She will personally review your request and get back to you within 24 hours.</p>
+                            <div class="booking-summary text-start" id="booking-summary"></div>
+                            <div class="confirmation-actions mt-3">
+                                <button class="button button-primary" type="button" data-bs-dismiss="modal">Done</button>
+                                <a class="button button-outline" id="booking-email-link" href="mailto:contact@manifestwithjaya.com" target="_blank">Also send via Email</a>
+                            </div>
+                            <p class="form-note mt-2 text-muted" id="copy-status" role="status">A copy has also been formatted for your records.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GOOGLE FORM ENROLLMENT MODAL -->
+    <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enroll-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered google-form-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <span class="modal-eyebrow">Join the Manifest Family</span>
+                        <h2 class="modal-title" id="enroll-title">Enroll in Programs &amp; Services</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close enrollment form"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <p class="modal-subtitle mb-3">Please fill out this enrollment form to register for personal coaching, healing sessions, or the Daily Magic Practice. We’ll confirm your schedule within 24 hours.</p>
+                    <div class="google-form-wrap">
+                        <iframe id="google-enroll-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSdt0G8eSFLJEVbIcmDz-X8t_RT97-HdyudYDa12hMGbLL1yXQ/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading enrollment form…</iframe>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                        <small class="text-muted">Form not displaying? <a href="https://docs.google.com/forms/d/1Arr4VDFaVQj_IJHUbI2P664uDbJ9dQfAyU8P4yhaeHE/viewform" target="_blank" rel="noopener noreferrer" class="text-decoration-underline" style="color:var(--primary)">Open Google Form in a new tab ↗</a></small>
+                        <button class="button button-outline py-1 px-3" type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="site-container footer-grid">
+            <div class="footer-brand">
+                <a class="footer-logo" href="index.html#home" aria-label="Manifest with Jaya — back to home">
+                    <img class="brand-logo" src="./assets/manifest-logo-mark.webp" alt="" width="42" height="42" loading="lazy">
+                    <span class="brand-name">Manifest with Jaya<small>Coaching · Healing</small></span>
+                </a>
+                <p class="copyright">© 2026 Manifest with Jaya. All Rights Reserved.</p>
+            </div>
+            <nav aria-label="Footer navigation">
+                <h2>Quick Links</h2>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="story.html">My Story</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="members.html">Members</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </nav>
+            <div>
+                <h2>Get in Touch</h2>
+                <ul class="footer-contact">
+                    <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 3 4 1 1 5-3 2c2 4 3 5 7 7l2-3 5 1 1 4c-1 5-9 2-14-3S0 4 5 3Z"/></svg><a href="tel:+918097836882">+91 80978 36882</a></li>
+                    <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg><a href="mailto:contact@manifestwithjaya.com">contact@manifestwithjaya.com</a></li>
+                    <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg><a href="mailto:manifestwithjaya101@gmail.com">manifestwithjaya101@gmail.com</a></li>
+                    <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg><a href="https://manifestwithjaya.com" target="_blank" rel="noopener noreferrer">www.manifestwithjaya.com</a></li>
+                    <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01" stroke-width="3"/></svg><a href="https://www.instagram.com/manifestwithjaya/" target="_blank" rel="noopener noreferrer">manifestwithjaya</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h2>Stay Connected</h2>
+                <div class="newsletter-layout">
+                    <p>Subscribe to get tips, updates and inspiration straight to your inbox.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <label class="visually-hidden" for="newsletter-email">Your email address</label>
+                        <input type="email" id="newsletter-email" name="email" placeholder="Enter your email address" autocomplete="email" required aria-describedby="newsletter-feedback">
+                        <button class="button button-primary" type="submit">Subscribe</button>
+                    </form>
+                    <p class="newsletter-feedback" id="newsletter-feedback" role="status" hidden></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
