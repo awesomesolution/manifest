@@ -238,7 +238,7 @@
                             </div>
                             <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg></span>
                             <h3><a href="services.html#personal-coaching">One-on-one<br>coaching</a></h3>
-                            <p>Personalised transformation with Jaya. Includes FREE access to Daily Magic Practice (DMP).</p>
+                            <p>Personalised transformation with Jaya. Includes FREE access to Daily Magic with Jaya (DMJ).</p>
                         </article>
                         <article class="program-card reveal">
                             <div class="program-image">
@@ -250,10 +250,10 @@
                         </article>
                         <article class="program-card reveal">
                             <div class="program-image">
-                                <img src="./assets/program-daily-magic.webp" alt="A Daily Magic Practice journal beside tea and flowers" width="481" height="256" loading="lazy">
+                                <img src="./assets/program-daily-magic.webp" alt="A Daily Magic with Jaya journal beside tea and flowers" width="481" height="256" loading="lazy">
                             </div>
                             <span class="program-badge"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg></span>
-                            <h3><a href="services.html#daily-magic">Daily Magic<br>Practice (DMP)</a></h3>
+                            <h3><a href="services.html#daily-magic">Daily Magic<br>with Jaya (DMJ)</a></h3>
                             <p>Simple daily practices to bring manifestation into your everyday life.</p>
                         </article>
                         <article class="program-card reveal" id="chakra-healing">
@@ -320,6 +320,15 @@
                                 <strong>My purpose is bigger than coaching.</strong>
                                 <p>I want to take this beautiful science to every household and help people realise that transformation begins from within.</p>
                             </div>
+                            <div class="my-belief-card">
+                                <div class="my-belief-header">
+                                    <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+                                    <span>My Belief: Self-Love is the Foundation</span>
+                                </div>
+                                <blockquote class="my-belief-quote">
+                                    “Manifestation does not start with chasing more from the world — it begins with knowing you are already worthy of it. Self-love is the sacred soil where every true shift takes root. When you honor your worth and meet yourself with kindness, the universe naturally reflects that harmony back into your life.”
+                                </blockquote>
+                            </div>
                             <a class="about-story-link" href="story.html">Read my story and vision <span aria-hidden="true">→</span></a>
                         </div>
                         <div class="stats-grid" aria-label="Jaya's experience and impact">
@@ -338,6 +347,14 @@
                     <div class="section-heading">
                         <h2 id="testimonials-title">Love &amp; Transformation</h2>
                         <div class="section-ornament" aria-hidden="true"><svg class="icon"><use href="#i-lotus"/></svg></div>
+                    </div>
+
+                    <div class="testimonials-header-action">
+                        <p class="testimonials-lead">Real transformation stories from our community. Watch video journeys or read heartfelt messages from clients.</p>
+                        <button class="button button-primary upload-story-btn" type="button" data-bs-toggle="modal" data-bs-target="#testimonialUploadModal">
+                            <svg class="icon" aria-hidden="true"><use href="#i-hand-heart"/></svg>
+                            <span>Share Your Story / Upload Testimonial</span>
+                        </button>
                     </div>
 
                     <!-- TESTIMONIAL TABS -->
@@ -366,7 +383,7 @@
                                     </article>
                                     <article class="testimonial-card">
                                         <span class="quote-mark" aria-hidden="true">“</span>
-                                        <blockquote>Daily Magic Practice and Ho’oponopono changed the way I handle my emotions and my life. I’m more positive, grateful and aligned with my true purpose.</blockquote>
+                                        <blockquote>Daily Magic with Jaya and Ho’oponopono changed the way I handle my emotions and my life. I’m more positive, grateful and aligned with my true purpose.</blockquote>
                                         <div class="testimonial-person">
                                             <div class="testimonial-avatar avatar-initials" aria-hidden="true">NR</div>
                                             <div><strong>– Neha R.</strong><span>Entrepreneur</span></div>
@@ -388,7 +405,7 @@
                         <p class="visually-hidden" id="testimonial-status" role="status" aria-live="polite"></p>
 
                         <!-- Client Messages Grid -->
-                        <div class="client-messages-grid">
+                        <div class="client-messages-grid" id="client-messages-container">
                             <article class="client-message-card">
                                 <div class="client-message-header">
                                     <div class="client-message-sender">
@@ -401,8 +418,8 @@
                                     <span class="client-badge-verified">✓ Verified</span>
                                 </div>
                                 <div class="client-message-stars">★★★★★</div>
-                                <p class="client-message-body">“Jaya ma’am, I just had to share this with you! After completing our 21-day Daily Magic Practice, the business deal I was stressing about for 6 months got approved today without any resistance! My energy feels so light and grateful.”</p>
-                                <span class="client-message-tag">Daily Magic Practice</span>
+                                <p class="client-message-body">“Jaya ma’am, I just had to share this with you! After completing our 21-day Daily Magic with Jaya, the business deal I was stressing about for 6 months got approved today without any resistance! My energy feels so light and grateful.”</p>
+                                <span class="client-message-tag">Daily Magic with Jaya</span>
                             </article>
 
                             <article class="client-message-card">
@@ -436,12 +453,19 @@
                                 <p class="client-message-body">“Before one-on-one coaching, I was stuck in severe self-doubt. Jaya helped me uncover subconscious blocks that were keeping me playing small. Today I received the leadership promotion I wanted for two years!”</p>
                                 <span class="client-message-tag">1-on-1 Mindset Coaching</span>
                             </article>
+
+                            <article class="client-message-card client-upload-card" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#testimonialUploadModal" aria-label="Upload your testimonial message">
+                                <div class="upload-icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-hand-heart"/></svg></div>
+                                <h3>Share Your Experience</h3>
+                                <p>Have you transformed with Jaya? Upload your words, message or review to inspire other seekers.</p>
+                                <span class="upload-cta-link">Submit Your Message →</span>
+                            </article>
                         </div>
                     </div>
 
                     <!-- PANEL 2: VIDEO TESTIMONIALS -->
                     <div class="testimonial-panel" id="panel-videos" role="tabpanel" aria-labelledby="tab-videos">
-                        <div class="video-testimonials-grid">
+                        <div class="video-testimonials-grid" id="video-testimonials-container">
                             <article class="video-card">
                                 <div class="video-card-thumb-wrap" data-video-src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" data-video-title="Neha R. — Transforming My Business &amp; Mindset" tabindex="0" role="button" aria-label="Play video testimonial from Neha R.">
                                     <img class="video-card-thumb" src="./assets/program-coaching.webp" alt="Neha R. Video Testimonial" width="481" height="291" loading="lazy">
@@ -451,8 +475,8 @@
                                     <span class="video-duration-badge">3:45</span>
                                 </div>
                                 <div class="video-card-body">
-                                    <span class="video-card-tag">Daily Magic Practice</span>
-                                    <h3 class="video-card-title">“How Daily Magic Practice doubled my clarity and inner peace.”</h3>
+                                    <span class="video-card-tag">Daily Magic with Jaya</span>
+                                    <h3 class="video-card-title">“How Daily Magic with Jaya doubled my clarity and inner peace.”</h3>
                                     <p class="video-card-author"><strong>Neha R.</strong> — Entrepreneur</p>
                                 </div>
                             </article>
@@ -485,6 +509,13 @@
                                     <h3 class="video-card-title">“Finding calm, focus and financial flow in 6 weeks with Jaya.”</h3>
                                     <p class="video-card-author"><strong>Rohit S.</strong> — IT Consultant</p>
                                 </div>
+                            </article>
+
+                            <article class="video-card video-upload-card" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#testimonialUploadModal" aria-label="Upload your video testimonial">
+                                <div class="upload-icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></div>
+                                <h3>Upload Video Story</h3>
+                                <p>Record or upload your video testimonial, or paste a link from YouTube, Drive, or Instagram.</p>
+                                <span class="upload-cta-link">Upload Video Testimonial →</span>
                             </article>
                         </div>
                     </div>
@@ -655,6 +686,134 @@
         </div>
     </div>
 
+    <!-- ================================================================
+         TESTIMONIAL UPLOAD MODAL (VIDEOS & MESSAGES)
+         ================================================================ -->
+    <div class="modal fade" id="testimonialUploadModal" tabindex="-1" aria-labelledby="testimonial-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <span class="modal-eyebrow">Your Transformation Story</span>
+                        <h2 class="modal-title" id="testimonial-modal-title">Share Your Journey with Jaya</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close form"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-subtitle">Your story has the power to inspire someone taking their first step. Share your experience via a written message or a video testimonial.</p>
+                    
+                    <div class="testimonial-type-selector" role="group" aria-label="Choose testimonial format">
+                        <button type="button" class="type-btn active" id="type-select-message" data-type="message">
+                            <span class="type-icon">💬</span>
+                            <span>Written Message</span>
+                        </button>
+                        <button type="button" class="type-btn" id="type-select-video" data-type="video">
+                            <span class="type-icon">📹</span>
+                            <span>Video Testimonial</span>
+                        </button>
+                    </div>
+
+                    <form id="testimonial-upload-form" novalidate>
+                        <input type="hidden" id="testimonial-type" name="testimonial_type" value="message">
+                        
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="testimonial-name" class="form-label">Your Name <span aria-hidden="true">*</span></label>
+                                <input type="text" class="form-control" id="testimonial-name" name="name" placeholder="E.g. Priya Sharma" required minlength="2">
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="testimonial-role" class="form-label">Profession / Location <span aria-hidden="true">*</span></label>
+                                <input type="text" class="form-control" id="testimonial-role" name="role" placeholder="E.g. Entrepreneur, Mumbai" required>
+                                <div class="invalid-feedback">Please enter your role or city.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="testimonial-email" class="form-label">Email Address <span aria-hidden="true">*</span></label>
+                                <input type="email" class="form-control" id="testimonial-email" name="email" placeholder="you@example.com" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="testimonial-program" class="form-label">Journey Experienced</label>
+                                <select class="form-select" id="testimonial-program" name="program">
+                                    <option value="One-on-One Coaching">One-on-One Manifestation Coaching</option>
+                                    <option value="Two-Person Coaching">Two-Person Manifestation Coaching</option>
+                                    <option value="Daily Magic with Jaya">Daily Magic with Jaya (DMJ)</option>
+                                    <option value="Ho’oponopono + EFT Healing">Ho’oponopono + EFT Healing</option>
+                                    <option value="Chakra Healing">Chakra Healing</option>
+                                    <option value="Community Session">Club / Corporate Workshop</option>
+                                </select>
+                            </div>
+
+                            <!-- FIELDS FOR WRITTEN MESSAGE -->
+                            <div id="message-fields" class="col-12 p-0">
+                                <div class="col-12 mb-3">
+                                    <label class="form-label d-block">Your Rating</label>
+                                    <div class="star-rating-select" id="star-rating-group" role="radiogroup" aria-label="Select rating">
+                                        <button type="button" class="star-btn active" data-rating="1" aria-label="1 star">★</button>
+                                        <button type="button" class="star-btn active" data-rating="2" aria-label="2 stars">★</button>
+                                        <button type="button" class="star-btn active" data-rating="3" aria-label="3 stars">★</button>
+                                        <button type="button" class="star-btn active" data-rating="4" aria-label="4 stars">★</button>
+                                        <button type="button" class="star-btn active" data-rating="5" aria-label="5 stars">★</button>
+                                        <input type="hidden" id="testimonial-rating" name="rating" value="5">
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="testimonial-body" class="form-label">Your Message / Story <span aria-hidden="true">*</span></label>
+                                    <textarea class="form-control" id="testimonial-body" name="message" rows="4" placeholder="How did working with Jaya transform your mindset, emotions, career, or relationships?" required minlength="10"></textarea>
+                                    <div class="invalid-feedback">Please share a few sentences about your experience.</div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="testimonial-image-upload" class="form-label">Optional Photo or Screenshot (WhatsApp feedback / memory)</label>
+                                    <input type="file" class="form-control" id="testimonial-image-upload" name="photo" accept="image/*">
+                                    <small class="text-muted">PNG, JPG, or JPEG up to 10MB.</small>
+                                </div>
+                            </div>
+
+                            <!-- FIELDS FOR VIDEO TESTIMONIAL -->
+                            <div id="video-fields" class="col-12 p-0" hidden>
+                                <div class="col-12 mb-3">
+                                    <label for="testimonial-video-title" class="form-label">Video Headline / Core Takeaway <span aria-hidden="true">*</span></label>
+                                    <input type="text" class="form-control" id="testimonial-video-title" name="video_title" placeholder="E.g. How Daily Magic with Jaya doubled my inner peace">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="testimonial-video-link" class="form-label">Video Link (YouTube, Vimeo, Google Drive, or Instagram)</label>
+                                    <input type="url" class="form-control" id="testimonial-video-link" name="video_link" placeholder="https://youtube.com/watch?v=... or Google Drive link">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="testimonial-video-file" class="form-label">Or Upload Video File Directly</label>
+                                    <input type="file" class="form-control" id="testimonial-video-file" name="video_file" accept="video/mp4,video/webm,video/quicktime">
+                                    <small class="text-muted">MP4, WebM, or MOV format (up to 50MB).</small>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="testimonial-consent" required checked>
+                                    <label class="form-check-label" for="testimonial-consent">I give permission to Manifest with Jaya to display my testimonial on the website and social media to inspire others.</label>
+                                    <div class="invalid-feedback">Please agree to share your story.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <button class="button button-primary w-100" id="testimonial-submit-btn" type="submit">
+                                    <span id="testimonial-btn-text">Submit Testimonial</span>
+                                    <span class="cta-arrow" aria-hidden="true">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="testimonial-success-box" id="testimonial-success" hidden>
+                        <div class="booking-success-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+                        <h3>Thank You for Sharing Your Light!</h3>
+                        <p>Your testimonial has been received with deep gratitude. Jaya and the team will review and publish your story to help inspire many more lives.</p>
+                        <button class="button button-primary mt-3" type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- VIDEO TESTIMONIAL MODAL -->
     <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="video-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered video-modal-dialog">
@@ -684,7 +843,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close enrollment form"></button>
                 </div>
                 <div class="modal-body p-3">
-                    <p class="modal-subtitle mb-3">Please fill out this enrollment form to register for personal coaching, healing sessions, or the Daily Magic Practice. We’ll confirm your schedule within 24 hours.</p>
+                    <p class="modal-subtitle mb-3">Please fill out this enrollment form to register for personal coaching, healing sessions, or Daily Magic with Jaya (DMJ). We’ll confirm your schedule within 24 hours.</p>
                     <div class="google-form-wrap">
                         <iframe id="google-enroll-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSdt0G8eSFLJEVbIcmDz-X8t_RT97-HdyudYDa12hMGbLL1yXQ/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading enrollment form…</iframe>
                     </div>

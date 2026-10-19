@@ -298,7 +298,7 @@
                     title: "One-on-one coaching",
                     icon: "person",
                     description: "A personal, supportive space to understand what’s holding you back and begin creating a life that feels more aligned with who you are.",
-                    features: ["Personalised sessions with Jaya around your goals.", "Mindset reflection, intentional action, and practices for everyday life.", "FREE access to Daily Magic Practice (DMP)."],
+                    features: ["Personalised sessions with Jaya around your goals.", "Mindset reflection, intentional action, and practices for everyday life.", "FREE access to Daily Magic with Jaya (DMJ)."],
                     meta: "Personalised support · Online sessions",
                     focus: "Personal Growth"
                 },
@@ -311,7 +311,7 @@
                     focus: "Personal Growth"
                 },
                 daily: {
-                    title: "Daily Magic Practice",
+                    title: "Daily Magic with Jaya (DMJ)",
                     icon: "star",
                     description: "Bring a little more intention into every day with simple, repeatable practices that fit into real life.",
                     features: ["Gratitude, journaling, and clear daily intentions.", "Gentle reflection to notice and reframe limiting beliefs.", "Consistent small actions that support your personal goals."],
@@ -340,7 +340,7 @@
                     title: "There’s a path that’s right for you.",
                     icon: "lotus",
                     description: "Whether you’re looking for personal guidance, a like-minded community, or a simple daily practice, we can begin where you are.",
-                    features: ["One-on-one coaching — personalised support with Jaya.", "Group coaching — learn and grow in community.", "Daily Magic Practice — bring intention into your everyday life.", "Chakra healing, Ho’oponopono & EFT — guided well-being practices."],
+                    features: ["One-on-one coaching — personalised support with Jaya.", "Group coaching — learn and grow in community.", "Daily Magic with Jaya (DMJ) — bring intention into your everyday life.", "Chakra healing, Ho’oponopono & EFT — guided well-being practices."],
                     meta: "Not sure which to choose? Start with a free clarity call.",
                     focus: "Finding clarity"
                 }
@@ -675,4 +675,159 @@
             document.addEventListener("visibilitychange", () => {
                 if (document.hidden && introPlaying) pauseIntro();
             });
+            /* ------------------------------------------------------------
+               Testimonial Upload & Submission (Video & Written Message)
+               ------------------------------------------------------------ */
+            const uploadModalEl = document.getElementById("testimonialUploadModal");
+            const uploadForm = document.getElementById("testimonial-upload-form");
+            const typeMsgBtn = document.getElementById("type-select-message");
+            const typeVidBtn = document.getElementById("type-select-video");
+            const msgFields = document.getElementById("message-fields");
+            const vidFields = document.getElementById("video-fields");
+            const typeInput = document.getElementById("testimonial-type");
+            const successBox = document.getElementById("testimonial-success");
+            const starBtns = $$(".star-btn");
+            const ratingInput = document.getElementById("testimonial-rating");
+
+            if (uploadModalEl && uploadForm) {
+                const setType = (type) => {
+                    typeInput.value = type;
+                    const isMsg = type === "message";
+                    if (typeMsgBtn) typeMsgBtn.classList.toggle("active", isMsg);
+                    if (typeVidBtn) typeVidBtn.classList.toggle("active", !isMsg);
+                    if (msgFields) msgFields.hidden = !isMsg;
+                    if (vidFields) vidFields.hidden = isMsg;
+                    const msgArea = document.getElementById("testimonial-body");
+                    const vidTitle = document.getElementById("testimonial-video-title");
+                    if (msgArea) msgArea.required = isMsg;
+                    if (vidTitle) vidTitle.required = !isMsg;
+                };
+
+                if (typeMsgBtn && typeVidBtn) {
+                    typeMsgBtn.addEventListener("click", () => setType("message"));
+                    typeVidBtn.addEventListener("click", () => setType("video"));
+                }
+
+                starBtns.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const r = parseInt(btn.dataset.rating, 10);
+                        if (ratingInput) ratingInput.value = r;
+                        starBtns.forEach(s => {
+                            const sr = parseInt(s.dataset.rating, 10);
+                            s.classList.toggle("active", sr <= r);
+                        });
+                    });
+                });
+
+                uploadForm.addEventListener("submit", async event => {
+                    event.preventDefault();
+                    uploadForm.classList.add("was-validated");
+                    if (!uploadForm.checkValidity()) {
+                        const inv = uploadForm.querySelector(":invalid");
+                        if (inv) inv.focus();
+                        return;
+                    }
+
+                    const submitBtn = document.getElementById("testimonial-submit-btn");
+                    const submitText = document.getElementById("testimonial-btn-text");
+                    const origText = submitText ? submitText.textContent : "Submit Testimonial";
+                    if (submitBtn) submitBtn.disabled = true;
+                    if (submitText) submitText.textContent = "Submitting your story...";
+
+                    const isVideo = typeInput.value === "video";
+                    const name = document.getElementById("testimonial-name").value.trim();
+                    const role = document.getElementById("testimonial-role").value.trim();
+                    const email = document.getElementById("testimonial-email").value.trim();
+                    const program = document.getElementById("testimonial-program").value;
+                    const rating = ratingInput ? ratingInput.value : "5";
+                    const messageBody = document.getElementById("testimonial-body") ? document.getElementById("testimonial-body").value.trim() : "";
+                    const videoTitle = document.getElementById("testimonial-video-title") ? document.getElementById("testimonial-video-title").value.trim() : "";
+                    const videoLink = document.getElementById("testimonial-video-link") ? document.getElementById("testimonial-video-link").value.trim() : "";
+
+                    try {
+                        const payload = {
+                            access_key: WEB3FORMS_ACCESS_KEY,
+                            subject: `New Client Testimonial (${isVideo ? 'Video' : 'Message'}): ${name}`,
+                            from_name: name,
+                            replyto: email,
+                            name: name,
+                            role: role,
+                            email: email,
+                            journey: program,
+                            rating: `${rating} Stars`,
+                            testimonial_type: isVideo ? "Video Story" : "Client Message",
+                            story: isVideo ? `Video Title: ${videoTitle}\nVideo Link: ${videoLink}` : messageBody
+                        };
+
+                        await fetch(FORM_DELIVERY_ENDPOINT, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                            body: JSON.stringify(payload)
+                        });
+                    } catch (err) {
+                        console.warn("Testimonial submission delivery fallback:", err);
+                    } finally {
+                        if (submitBtn) submitBtn.disabled = false;
+                        if (submitText) submitText.textContent = origText;
+                    }
+
+                    if (!isVideo && messageBody) {
+                        const container = document.getElementById("client-messages-container");
+                        if (container) {
+                            const newCard = document.createElement("article");
+                            newCard.className = "client-message-card";
+                            const initials = name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() || "J";
+                            const starsStr = "★".repeat(parseInt(rating, 10));
+                            newCard.innerHTML = `
+                                <div class="client-message-header">
+                                    <div class="client-message-sender">
+                                        <div class="client-message-avatar">${initials}</div>
+                                        <div class="client-message-info">
+                                            <strong>${name}</strong>
+                                            <span>${role}</span>
+                                        </div>
+                                    </div>
+                                    <span class="client-badge-verified">✓ Just Shared</span>
+                                </div>
+                                <div class="client-message-stars">${starsStr}</div>
+                                <p class="client-message-body">“${messageBody}”</p>
+                                <span class="client-message-tag">${program}</span>
+                            `;
+                            container.insertBefore(newCard, container.firstChild);
+                        }
+                    } else if (isVideo && (videoTitle || videoLink)) {
+                        const vidContainer = document.getElementById("video-testimonials-container");
+                        if (vidContainer) {
+                            const newVid = document.createElement("article");
+                            newVid.className = "video-card";
+                            newVid.innerHTML = `
+                                <div class="video-card-thumb-wrap" tabindex="0" role="button" aria-label="Play video testimonial from ${name}">
+                                    <img class="video-card-thumb" src="./assets/program-coaching.webp" alt="${name} Video Testimonial" width="481" height="291" loading="lazy">
+                                    <div class="video-play-overlay">
+                                        <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></svg></div>
+                                    </div>
+                                    <span class="video-duration-badge">New</span>
+                                </div>
+                                <div class="video-card-body">
+                                    <span class="video-card-tag">${program}</span>
+                                    <h3 class="video-card-title">“${videoTitle || 'A life-changing journey with Jaya'}”</h3>
+                                    <p class="video-card-author"><strong>${name}</strong> — ${role}</p>
+                                </div>
+                            `;
+                            vidContainer.insertBefore(newVid, vidContainer.firstChild);
+                        }
+                    }
+
+                    uploadForm.hidden = true;
+                    if (successBox) successBox.hidden = false;
+                });
+
+                uploadModalEl.addEventListener("hidden.bs.modal", () => {
+                    uploadForm.reset();
+                    uploadForm.classList.remove("was-validated");
+                    uploadForm.hidden = false;
+                    if (successBox) successBox.hidden = true;
+                    setType("message");
+                });
+            }
         })();
