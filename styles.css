@@ -525,19 +525,28 @@
 }
 
 .about-role {
-    margin: 0 0 16px;
+    margin: 0 0 14px;
     color: var(--primary);
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
+    line-height: 1.45;
+}
+
+.about-copy .about-lead {
+    color: var(--burgundy);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 14px;
 }
 
 .about-copy > p {
     color: var(--text-light);
     font-size: 14.5px;
     line-height: 1.65;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .about-copy .purpose {
@@ -591,6 +600,12 @@
     line-height: 1.6;
     color: var(--burgundy);
     margin: 0;
+}
+
+.heart-accent {
+    font-style: normal;
+    display: inline-block;
+    margin-left: 2px;
 }
 
 .about-story-link {
