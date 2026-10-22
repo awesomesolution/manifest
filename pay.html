@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#a93d5d">
+    <meta name="description" content="Secure payment gateway for Manifest with Jaya. Pay securely for coaching programs, healing journeys, and Daily Magic with Jaya via UPI, cards, and netbanking.">
+    <title>Secure Checkout &amp; Payment | Manifest with Jaya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./site-shared.css">
+    <link rel="stylesheet" href="./pay.css">
+    <!-- Razorpay Checkout Official SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="./pay.js" defer></script>
+</head>
+<body class="pay-body">
+
+    <!-- MINIMAL CHECKOUT HEADER -->
+    <header class="pay-header">
+        <div class="site-container d-flex justify-content-between align-items-center">
+            <a class="brand" href="index.html#home" aria-label="Manifest with Jaya — home">
+                <img class="brand-logo" src="./assets/manifest-logo-mark.webp" alt="Logo" width="40" height="40">
+                <span class="brand-name">Manifest with Jaya<small>Coaching · Healing</small></span>
+            </a>
+            <div class="header-security d-flex align-items-center gap-2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span class="security-text">256-Bit SSL Encrypted</span>
+                <a href="services.html" class="btn btn-sm btn-outline-secondary ms-3">← Back to Services</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pay-main site-container py-5">
+        <div class="row g-4 justify-content-center">
+
+            <!-- LEFT COLUMN: SUMMARY & DETAILS -->
+            <div class="col-lg-5 order-lg-2">
+                <div class="summary-card" id="summaryCard">
+                    <div class="summary-header">
+                        <span class="eyebrow" id="summaryEyebrow">Investment Summary</span>
+                        <h2 class="summary-title" id="summaryServiceName">Daily Magic with Jaya — DMJ</h2>
+                        <p class="summary-desc text-muted" id="summaryServiceDesc">Daily manifestation practice, morning alignment routines, guided affirmations &amp; supportive group access.</p>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- INVOICE QUOTATION BADGE (IF CUSTOM) -->
+                    <div class="invoice-badge mb-3" id="invoiceBadge" hidden>
+                        <span class="badge bg-gold-subtle text-dark py-2 px-3 d-inline-block">
+                            Official Quotation: <strong id="invBadgeNum">INV-0000</strong>
+                        </span>
+                        <p class="small text-muted mt-2 mb-0" id="invBadgeTerms">Payment Terms: Due upon receipt</p>
+                    </div>
+
+                    <div class="summary-breakdown">
+                        <div class="summary-row">
+                            <span class="text-muted">Service Fee</span>
+                            <span class="fw-semibold" id="breakdownAmount">₹2,000.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">GST / Taxes</span>
+                            <span class="text-muted">Inclusive</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total-row">
+                            <span>Total Due Today</span>
+                            <span class="total-amount" id="totalDueAmount">₹2,000.00</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-badges mt-4">
+                        <span class="badge-title">Supported Payment Methods</span>
+                        <div class="badge-icons">
+                            <span class="pay-badge">UPI / GPay / PhonePe</span>
+                            <span class="pay-badge">Debit / Credit Cards</span>
+                            <span class="pay-badge">Netbanking</span>
+                            <span class="pay-badge">Razorpay</span>
+                        </div>
+                    </div>
+
+                    <div class="guarantee-box mt-4">
+                        <svg class="icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a93d5d" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <p class="small m-0 text-muted">Your payment is encrypted and securely processed by <strong>Razorpay</strong>. No card details are ever stored on our server.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CHECKOUT FORM OR CONFIRMATION -->
+            <div class="col-lg-7 order-lg-1">
+                <div class="checkout-card" id="checkoutCard">
+                    <div class="checkout-header mb-4">
+                        <span class="eyebrow">Step 1 of 2</span>
+                        <h1 class="checkout-title" id="checkoutFormTitle">Complete Your Enrollment</h1>
+                        <p class="text-muted">Please provide your details below. You will be redirected to the secure Razorpay payment window to complete your transaction.</p>
+                    </div>
+
+                    <!-- ERROR ALERT -->
+                    <div class="alert alert-danger" id="checkoutError" role="alert" hidden></div>
+
+                    <!-- FORM -->
+                    <form id="payForm" novalidate>
+                        <!-- SERVICE SELECTION (HIDDEN IF INVOICE MODE) -->
+                        <div class="mb-4" id="serviceSelectionGroup">
+                            <label for="serviceSelect" class="form-label fw-bold">Select Journey or Program <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg" id="serviceSelect" name="service_key" required>
+                                <option value="dmj-monthly" selected>Daily Magic with Jaya (DMJ) — 1 Month (₹2,000)</option>
+                                <option value="dmj-yearly">Daily Magic with Jaya (DMJ) — 1 Year (₹20,000)</option>
+                                <option value="eft-healing">Ho’oponopono + EFT Healing (8 Sessions) (₹20,000)</option>
+                                <option value="one-on-one">One-on-One Manifestation Coaching (1 Month) (₹1,00,000)</option>
+                                <option value="shared-coaching">Two-Person Manifestation Coaching (1 Month) (₹1,50,000)</option>
+                            </select>
+                        </div>
+
+                        <input type="hidden" id="invoiceNumberInput" name="invoice_number" value="">
+
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="clientName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="clientName" name="name" placeholder="Your full name" autocomplete="name" required minlength="2">
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="clientEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="clientEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+                                <div class="invalid-feedback">Please enter a valid email for confirmation receipt.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="clientPhone" class="form-label">Phone / WhatsApp Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="clientPhone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" required minlength="10">
+                                <div class="invalid-feedback">Please provide your mobile or WhatsApp number.</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="clientCity" class="form-label">City / Country</label>
+                                <input type="text" class="form-control" id="clientCity" name="city" placeholder="e.g. Mumbai, India">
+                            </div>
+                            <div class="col-12">
+                                <label for="clientNotes" class="form-label">Special Intention / Note for Jaya (Optional)</label>
+                                <textarea class="form-control" id="clientNotes" name="notes" rows="2" placeholder="Tell Jaya what you’re currently working on manifesting..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-check mt-4 mb-4">
+                            <input class="form-check-input" type="checkbox" id="termsConsent" required checked>
+                            <label class="form-check-label small text-muted" for="termsConsent">
+                                I understand that coaching and healing practices are for personal growth and inner transformation, and I agree to the <a href="disclaimer.html" target="_blank" class="text-decoration-underline">disclaimer and terms</a>.
+                            </label>
+                            <div class="invalid-feedback">Please accept the terms to proceed.</div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="button button-primary py-3" id="paySubmitBtn">
+                                <span id="payBtnText">Proceed to Secure Payment</span>
+                                <span class="cta-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- SUCCESS CELEBRATION BOX -->
+                    <div class="payment-success-view" id="paymentSuccessView" hidden>
+                        <div class="success-icon-wrap">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <span class="eyebrow text-success">Payment Confirmed</span>
+                        <h2 class="success-title">Your Journey Has Begun! ❤️</h2>
+                        <p class="success-desc">Thank you for placing your trust in Manifest with Jaya. Your payment has been received and verified by our system.</p>
+
+                        <div class="receipt-box">
+                            <div class="receipt-row">
+                                <span>Service / Program</span>
+                                <strong id="recService">—</strong>
+                            </div>
+                            <div class="receipt-row">
+                                <span>Amount Paid</span>
+                                <strong id="recAmount">—</strong>
+                            </div>
+                            <div class="receipt-row">
+                                <span>Razorpay Payment ID</span>
+                                <code id="recPaymentId">—</code>
+                            </div>
+                            <div class="receipt-row">
+                                <span>Invoice Number</span>
+                                <code id="recInvoiceNum">—</code>
+                            </div>
+                            <div class="receipt-row">
+                                <span>Date &amp; Time</span>
+                                <span id="recDate">—</span>
+                            </div>
+                        </div>
+
+                        <div class="success-actions mt-4 d-flex gap-3 justify-content-center">
+                            <button class="button button-outline" type="button" onclick="window.print()">Print / Save Receipt</button>
+                            <a class="button button-primary" id="portalAccessBtn" href="members.html">Access Member Portal →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="pay-footer text-center py-4 text-muted small">
+        <div class="site-container">
+            <p class="m-0">© 2026 Manifest with Jaya · All Rights Reserved · Powered by Razorpay Checkout</p>
+        </div>
+    </footer>
+
+</body>
+</html>

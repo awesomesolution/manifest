@@ -40,13 +40,131 @@
     font-size: 15px;
 }
 
+/* Featured: A Gentle Yet Important Reminder Card */
+.gentle-reminder-card {
+    position: relative;
+    margin-bottom: 32px;
+    padding: clamp(32px, 5.5vw, 56px);
+    border: 1.5px solid rgba(169, 61, 93, 0.22);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #ffffff 0%, #fffbf8 50%, #fff3f5 100%);
+    box-shadow: 0 16px 40px rgba(169, 61, 93, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.gentle-reminder-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(169, 61, 93, 0.12);
+}
+
+.gentle-reminder-heart-badge {
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fdf0f4 0%, #fbe2ea 100%);
+    border: 1px solid rgba(169, 61, 93, 0.25);
+    box-shadow: 0 6px 16px rgba(169, 61, 93, 0.12);
+}
+
+.gentle-reminder-title {
+    margin: 0 0 10px;
+    color: var(--burgundy);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.8vw, 2.7rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.gentle-reminder-tagline {
+    margin: 0;
+    color: var(--primary);
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.gentle-reminder-body p {
+    margin: 0 0 18px;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.gentle-reminder-body strong {
+    color: var(--burgundy);
+    font-weight: 600;
+}
+
+.gentle-reminder-quote {
+    position: relative;
+    margin: 26px 0;
+    padding: 20px 24px;
+    border-left: 4px solid var(--primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: linear-gradient(90deg, rgba(169, 61, 93, 0.06) 0%, rgba(255, 255, 255, 0.5) 100%);
+    color: var(--burgundy);
+    font-family: var(--font-heading);
+    font-size: clamp(1.12rem, 2vw, 1.32rem);
+    font-style: italic;
+    line-height: 1.55;
+}
+
+.gentle-reminder-affirmation {
+    margin: 24px 0 20px;
+    color: var(--burgundy);
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.gentle-reminder-signoff {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(169, 61, 93, 0.2);
+    text-align: right;
+}
+
+.gentle-reminder-signoff .signoff-prelude {
+    margin: 0 0 4px;
+    color: var(--muted);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+.gentle-reminder-signoff .signoff-signature {
+    margin: 0;
+    color: var(--primary);
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
 .disclaimer-card {
     position: relative;
     padding: clamp(28px, 5vw, 52px);
     border: 1px solid #ebd8d0;
     border-radius: var(--radius-lg);
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+}
+
+.disclaimer-subheading {
+    margin: 0 0 22px;
+    color: var(--burgundy);
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 500;
+    text-align: center;
 }
 
 .disclaimer-mark {

@@ -1,0 +1,225 @@
+/* Manifest with Jaya — Checkout & Payment Portal CSS */
+:root {
+    --burgundy: #3d1520;
+    --primary: #a93d5d;
+    --primary-dark: #8c2a47;
+    --gold: #c39a56;
+    --gold-light: #e6c887;
+    --cream: #fbf7f4;
+    --surface: #ffffff;
+    --text-dark: #2b2b2b;
+    --text-light: #6e6e6e;
+    --border: #f0e6df;
+}
+
+body.pay-body {
+    background-color: #faf6f3;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+/* HEADER */
+.pay-header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+}
+
+.pay-header .brand-name small {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--primary);
+}
+
+.security-text {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #2e7d32;
+    letter-spacing: 0.02em;
+}
+
+/* SUMMARY CARD (LEFT/RIGHT) */
+.summary-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(61, 21, 32, 0.04);
+}
+
+.summary-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    margin: 8px 0 6px;
+    line-height: 1.2;
+}
+
+.summary-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.summary-divider {
+    height: 1px;
+    background: #f0e6df;
+    margin: 20px 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.summary-row.total-row {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    padding-top: 4px;
+}
+
+.total-amount {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.payment-badges {
+    background: #fcf9f7;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid #f4eae4;
+}
+
+.badge-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8c827a;
+    margin-bottom: 8px;
+}
+
+.badge-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.pay-badge {
+    background: #fff;
+    border: 1px solid #ebd9d2;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.guarantee-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fff8f8;
+    border: 1px solid #f9e2e7;
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+/* CHECKOUT CARD */
+.checkout-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 38px 34px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(61, 21, 32, 0.04);
+}
+
+.checkout-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    margin: 4px 0 8px;
+}
+
+.form-control, .form-select {
+    border-color: #ebdcd5;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(169, 61, 93, 0.15);
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+/* SUCCESS RECEIPT */
+.payment-success-view {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-icon-wrap {
+    margin-bottom: 16px;
+}
+
+.success-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    margin-bottom: 10px;
+}
+
+.success-desc {
+    color: var(--text-light);
+    max-width: 500px;
+    margin: 0 auto 28px;
+}
+
+.receipt-box {
+    background: #faf6f3;
+    border: 1px solid #eeded5;
+    border-radius: 12px;
+    padding: 20px 24px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f2e6df;
+    font-size: 0.92rem;
+}
+
+.receipt-row:last-child {
+    border-bottom: 0;
+}
+
+/* FOOTER */
+.pay-footer {
+    border-top: 1px solid var(--border);
+    background: #fff;
+    margin-top: 60px;
+}

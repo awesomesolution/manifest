@@ -166,9 +166,12 @@
                 setTimeout(() => openBooking("clarity"), 350);
             }
 
-            $("#booking-name").addEventListener("input", event => {
-                event.target.setCustomValidity(event.target.value.trim().length < 2 ? "Please enter your name." : "");
-            });
+            const bookingNameInput = $("#booking-name");
+            if (bookingNameInput) {
+                bookingNameInput.addEventListener("input", event => {
+                    event.target.setCustomValidity(event.target.value.trim().length < 2 ? "Please enter your name." : "");
+                });
+            }
 
             let requestBody = "";
             const FORM_DELIVERY_ENDPOINT = "https://api.web3forms.com/submit";
@@ -262,33 +265,43 @@
                 $("#booking-confirmation").hidden = false;
             });
 
-            $("#edit-booking").addEventListener("click", () => {
-                $("#booking-confirmation").hidden = true;
-                bookingForm.hidden = false;
-                $("#booking-name").focus();
-            });
+            const editBooking = $("#edit-booking");
+            if (editBooking) {
+                editBooking.addEventListener("click", () => {
+                    const bookingConfirmation = $("#booking-confirmation");
+                    if (bookingConfirmation) bookingConfirmation.hidden = true;
+                    if (bookingForm) bookingForm.hidden = false;
+                    const bookingName = $("#booking-name");
+                    if (bookingName) bookingName.focus();
+                });
+            }
 
-            $("#copy-request").addEventListener("click", async () => {
-                try {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(requestBody);
-                    } else {
-                        const textArea = document.createElement("textarea");
-                        textArea.value = requestBody;
-                        textArea.style.position = "fixed";
-                        textArea.style.opacity = "0";
-                        bookingElement.appendChild(textArea);
-                        textArea.select();
-                        const copied = document.execCommand("copy");
-                        textArea.remove();
-                        if (!copied) throw new Error("Copy unavailable");
+            const copyRequest = $("#copy-request");
+            if (copyRequest) {
+                copyRequest.addEventListener("click", async () => {
+                    try {
+                        if (navigator.clipboard && window.isSecureContext) {
+                            await navigator.clipboard.writeText(requestBody);
+                        } else {
+                            const textArea = document.createElement("textarea");
+                            textArea.value = requestBody;
+                            textArea.style.position = "fixed";
+                            textArea.style.opacity = "0";
+                            bookingElement.appendChild(textArea);
+                            textArea.select();
+                            const copied = document.execCommand("copy");
+                            textArea.remove();
+                            if (!copied) throw new Error("Copy unavailable");
+                        }
+                        copyRequest.textContent = "Copied!";
+                        const copyStatus = $("#copy-status");
+                        if (copyStatus) copyStatus.textContent = `Details copied. Paste them into an email to ${contactEmail}.`;
+                    } catch (_) {
+                        const copyStatus = $("#copy-status");
+                        if (copyStatus) copyStatus.textContent = "Your browser couldn’t copy automatically. Select the summary above, or use the email button.";
                     }
-                    $("#copy-request").textContent = "Copied!";
-                    $("#copy-status").textContent = `Details copied. Paste them into an email to ${contactEmail}.`;
-                } catch (_) {
-                    $("#copy-status").textContent = "Your browser couldn’t copy automatically. Select the summary above, or use the email button.";
-                }
-            });
+                });
+            }
 
             /* ------------------------------------------------------------
                Reusable program / transformation content.
@@ -377,13 +390,20 @@
 
             $$("[data-program]").forEach(button => button.addEventListener("click", () => openDetail(programData[button.dataset.program], false)));
             $$("[data-topic]").forEach(button => button.addEventListener("click", () => openDetail(topicData[button.dataset.topic], true)));
-            $("#detail-book").addEventListener("click", () => openBooking("clarity", detailFocus));
-            $('a[data-bs-dismiss="modal"]', detailElement).addEventListener("click", event => {
-                event.preventDefault();
-                detailElement.addEventListener("hidden.bs.modal", () => {
-                    $("#programs").scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
-                }, { once: true });
-            });
+            const detailBook = $("#detail-book");
+            if (detailBook) detailBook.addEventListener("click", () => openBooking("clarity", detailFocus));
+            if (detailElement) {
+                const dismissBtn = $('a[data-bs-dismiss="modal"]', detailElement);
+                if (dismissBtn) {
+                    dismissBtn.addEventListener("click", event => {
+                        event.preventDefault();
+                        detailElement.addEventListener("hidden.bs.modal", () => {
+                            const progs = $("#programs");
+                            if (progs) progs.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+                        }, { once: true });
+                    });
+                }
+            }
 
             /* ------------------------------------------------------------
                Testimonial carousel: original reviews only, circular order.
@@ -467,34 +487,41 @@
                 renderTestimonials(testimonialIndex + direction, true, true, direction);
             }
 
-            track.addEventListener("transitionend", event => {
-                if (event.propertyName !== "transform") return;
-                if (carouselPosition >= visibleCount + originals.length || carouselPosition < visibleCount) {
-                    renderTestimonials(testimonialIndex, false, false);
-                }
-                carouselAnimating = false;
-            });
+            if (track) {
+                track.addEventListener("transitionend", event => {
+                    if (event.propertyName !== "transform") return;
+                    if (carouselPosition >= visibleCount + originals.length || carouselPosition < visibleCount) {
+                        renderTestimonials(testimonialIndex, false, false);
+                    }
+                    carouselAnimating = false;
+                });
+            }
 
-            $(".carousel-prev").addEventListener("click", () => moveTestimonials(-1));
-            $(".carousel-next").addEventListener("click", () => moveTestimonials(1));
-            testimonialWindow.addEventListener("keydown", event => {
-                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-                    event.preventDefault();
-                    moveTestimonials(event.key === "ArrowRight" ? 1 : -1);
-                }
-            });
+            const carouselPrev = $(".carousel-prev");
+            if (carouselPrev) carouselPrev.addEventListener("click", () => moveTestimonials(-1));
+            const carouselNext = $(".carousel-next");
+            if (carouselNext) carouselNext.addEventListener("click", () => moveTestimonials(1));
 
-            let touchStartX = 0;
-            let touchStartY = 0;
-            testimonialWindow.addEventListener("touchstart", event => {
-                touchStartX = event.changedTouches[0].clientX;
-                touchStartY = event.changedTouches[0].clientY;
-            }, { passive: true });
-            testimonialWindow.addEventListener("touchend", event => {
-                const dx = event.changedTouches[0].clientX - touchStartX;
-                const dy = event.changedTouches[0].clientY - touchStartY;
-                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) moveTestimonials(dx < 0 ? 1 : -1);
-            }, { passive: true });
+            if (testimonialWindow) {
+                testimonialWindow.addEventListener("keydown", event => {
+                    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                        event.preventDefault();
+                        moveTestimonials(event.key === "ArrowRight" ? 1 : -1);
+                    }
+                });
+
+                let touchStartX = 0;
+                let touchStartY = 0;
+                testimonialWindow.addEventListener("touchstart", event => {
+                    touchStartX = event.changedTouches[0].clientX;
+                    touchStartY = event.changedTouches[0].clientY;
+                }, { passive: true });
+                testimonialWindow.addEventListener("touchend", event => {
+                    const dx = event.changedTouches[0].clientX - touchStartX;
+                    const dy = event.changedTouches[0].clientY - touchStartY;
+                    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) moveTestimonials(dx < 0 ? 1 : -1);
+                }, { passive: true });
+            }
 
             let resizeTimer;
             window.addEventListener("resize", () => {
@@ -508,7 +535,8 @@
                ------------------------------------------------------------ */
             const testimonialTabs = $$(".testimonial-tab");
             testimonialTabs.forEach(tab => {
-                tab.addEventListener("click", () => {
+                tab.addEventListener("click", (e) => {
+                    e.preventDefault();
                     const targetTab = tab.dataset.tab;
                     testimonialTabs.forEach(t => {
                         const isActive = t === tab;
@@ -518,8 +546,257 @@
                     $$(".testimonial-panel").forEach(panel => {
                         panel.classList.toggle("active", panel.id === `panel-${targetTab}`);
                     });
+                    if (targetTab === "words" && typeof renderTestimonials === "function") {
+                        setTimeout(() => renderTestimonials(testimonialIndex, false, false), 50);
+                    }
                 });
             });
+
+            /* ------------------------------------------------------------
+               Transformation Story Database & Reader Modal.
+               ------------------------------------------------------------ */
+            const storyDatabase = {
+                "pravin": {
+                    title: "From Relationship Conflicts to Love & Compassion — Pravin’s Ho’oponopono Journey",
+                    author: "Pravin",
+                    role: "Married Professional",
+                    category: "Ho’oponopono · Family & Marriage",
+                    pdf: null,
+                    paragraphs: [
+                        "After marriage, Pravin experienced a growing distance and deterioration in his relationship with his parents. When he decided to move out with his wife, his parents strongly opposed the decision and even told him that if he moved out, he should consider them dead.",
+                        "The situation was emotionally challenging, and the relationship seemed stuck in pain and conflict.",
+                        "That’s when Pravin started practising Ho’oponopono, the beautiful practice of forgiveness, love, and inner healing.",
+                        "And then, something beautiful happened! ✨",
+                        "One day, while Pravin was at work, his father unexpectedly called him and said: <em>“We want you and your wife to be happy. You can happily move out. We will continue meeting each other with love and compassion.”</em> ❤️",
+                        "What once seemed like an impossible conversation became a moment of understanding, acceptance, and love.",
+                        "Pravin’s journey is a beautiful reminder that when we begin healing within ourselves, we can create space for healing in our relationships too.",
+                        "Sometimes, the biggest miracles aren't about changing people; they're about allowing love, forgiveness, and compassion to replace fear, resistance, and pain.",
+                        "✨ <strong>Ho’oponopono — a small practice, a powerful shift, and a beautiful possibility for healing relationships.</strong> 🙏"
+                    ]
+                },
+                "jonita": {
+                    title: "From Months of Pain to a Powerful Healing Experience — Jonita’s Journey",
+                    author: "Jonita",
+                    role: "Client Journey",
+                    category: "Ho’oponopono & EFT · Chakra Activation",
+                    pdf: null,
+                    paragraphs: [
+                        "For more than six months, Jonita had been struggling with persistent neck and shoulder pain. Despite taking medication and undergoing physiotherapy, she hadn't experienced much relief.",
+                        "That’s when we began practising Ho’oponopono and EFT, focusing on releasing the emotional burden she felt she was carrying.",
+                        "And guess what? ✨ After just ONE session, Jonita experienced a remarkable change — her pain disappeared! ❤️",
+                        "But something even more profound happened during her third-eye chakra activation practice.",
+                        "Jonita experienced a deeply emotional spiritual connection in which she felt the presence of her late mother and grandmother. She also experienced Mother Mary standing behind her, bringing her a beautiful message: <em>“You are not alone on this journey. We are always around you, blessing you.”</em> 🙏✨",
+                        "The experience left her with a profound sense of comfort, love, and connection.",
+                        "Jonita’s journey reminds us that healing can be deeply personal. Sometimes, beyond the physical discomfort, we carry emotional burdens that deserve our attention, compassion, and care.",
+                        "And sometimes, the most beautiful gift of a healing experience is the feeling that we are loved, supported, and never alone. ❤️",
+                        "✨ <strong>One session. A remarkable experience. A heart filled with hope.</strong>"
+                    ]
+                },
+                "jaya-recovery": {
+                    title: "From Paralysis to Participating in Every Wedding Ritual — Jaya’s Inspiring Journey",
+                    author: "Jaya",
+                    role: "Loving Mother",
+                    category: "Remote Energy Healing · Mindset & Faith",
+                    pdf: null,
+                    paragraphs: [
+                        "A mother dreams of witnessing her daughter's wedding for years — being part of every ritual, enjoying the shopping, celebrating every little moment, and creating memories she will cherish forever.",
+                        "But for Jaya, that dream was suddenly shattered. Just a month before her daughter's wedding, she suffered a paralysis attack. Her heart was broken. The doctors told her that she might not be able to walk for at least 10–12 months.",
+                        "How could she accept the thought of missing the most precious moments of her daughter's life?",
+                        "That's when we began remote healing sessions, focusing on strengthening her mindset, building faith in her body's ability to recover, and helping her embrace the thought that being alive itself is a blessing. ❤️ Alongside her medical treatment, we worked on her mindset, emotional strength, hope, and healing.",
+                        "And then came the beautiful turn in her journey! ✨ In less than a month, Jaya started walking!",
+                        "The mother who feared she would miss her daughter's wedding didn't just attend it — she participated in every ritual, enjoyed the shopping, and made sure she was part of the celebrations she had dreamed of for years. ❤️🙏",
+                        "For Jaya, it was more than walking again. It was about reclaiming precious moments, experiencing the joy of motherhood, and being present for a milestone she would never want to miss.",
+                        "✨ <strong>Her journey reminds us that even in our darkest moments, hope matters. Our mindset can support us through life's toughest challenges, and the right combination of medical care, emotional support, and determination can make a meaningful difference.</strong>"
+                    ]
+                },
+                "anubhav": {
+                    title: "An Unexpected Healing Experience — Anubhav Sharma’s Story",
+                    author: "Anubhav Sharma",
+                    role: "Workshop Participant",
+                    category: "Group Energy Healing · Emotional Release",
+                    pdf: null,
+                    paragraphs: [
+                        "Imagine joining a Zoom healing session with more than 300 participants, believing you are simply there to learn — and leaving with an experience you never expected! That’s what happened with Anubhav Sharma.",
+                        "During the session, I was guiding a lady through a healing practice for her pain. While I was working with her, Anubhav began following my instructions and practising the techniques along with everyone else.",
+                        "But here’s what made the experience so special! ✨ Anubhav experienced his month-long back pain disappearing during that very session — even though I wasn't working with him directly! ❤️",
+                        "He was simply participating, following the process, and applying the practice to himself.",
+                        "For me, his experience beautifully illustrates why I encourage people to pay attention to their emotional well-being alongside their physical health. Sometimes, we carry stress and emotional burdens without even realising how they affect the way we feel.",
+                        "✨ <strong>Anubhav’s experience is a reminder that you don't always have to be the person receiving direct attention to benefit from a healing practice. Your own participation matters, too.</strong>"
+                    ]
+                },
+                "ankita": {
+                    title: "From PCOD Challenges to Emotional Release & Greater Balance",
+                    author: "Ankita",
+                    role: "Verified Client Case",
+                    category: "PCOD & Emotional Release",
+                    pdf: "./assets/Ankita.pdf",
+                    paragraphs: [
+                        "Ankita came to me while navigating challenges related to PCOD and an irregular cycle. As we explored her emotional patterns, she became aware of the deep-rooted fear and guilt connected to experiences from her past.",
+                        "Rather than focusing only on the physical concern, Ankita consciously chose to work on the emotional weight she had been carrying. She began releasing these past patterns, creating greater acceptance and compassion towards herself.",
+                        "Over time, she experienced a more regular, normal cycle, which she saw as an important part of her overall journey.",
+                        "For Ankita, the transformation wasn't only about her cycle. It was about understanding herself more deeply, releasing the emotional burden of the past and creating a healthier relationship with her own emotions.",
+                        "✨ <strong>Her biggest transformation:</strong> She didn't just want a change in her physical experience — she chose to address the fear and guilt she had been carrying and consciously create a more balanced relationship with herself."
+                    ]
+                },
+                "paramjeet": {
+                    title: "From Physical Discomfort to Inner Acceptance",
+                    author: "Paramjeet",
+                    role: "Verified Client Case",
+                    category: "Root Chakra & Acceptance",
+                    pdf: "./assets/Paramjeet.pdf",
+                    paragraphs: [
+                        "Paramjeet joined me while experiencing hip and calf pain. As we explored the emotional patterns behind what she was experiencing, she began becoming more aware of how much discomfort she was carrying around situations and people in her life.",
+                        "Through our sessions, she started practising acceptance — learning to become more comfortable with people being exactly as they are, rather than constantly resisting or trying to change them.",
+                        "As she worked on this emotional shift and focused on bringing greater balance to her root chakra, she noticed a remarkable change. Within just two days, she experienced a significant disappearance of the pain.",
+                        "For her, the transformation wasn't simply about feeling better physically. It was about understanding the connection between inner resistance, emotional patterns and the way we experience life.",
+                        "✨ <strong>Her biggest transformation:</strong> She learned that sometimes, when we stop fighting what we cannot control and start embracing acceptance, we create space for greater balance within ourselves."
+                    ]
+                },
+                "parampreet": {
+                    title: "From Pain 10/10 to 0/10 in One Session",
+                    author: "Parampreet",
+                    role: "Verified Client Case",
+                    category: "Rapid Pain Cleansing",
+                    pdf: "./assets/Parampreet.pdf",
+                    paragraphs: [
+                        "Parampreet came into the session experiencing pain that she described as 10/10. Rather than focusing only on the physical discomfort, we explored the emotional burden she had been carrying within.",
+                        "During the session, she was able to connect with and release emotions and burdens that she had been holding onto for a long time. As she experienced this emotional release, she noticed a remarkable change in how she felt physically.",
+                        "By the end of the session, she reported that her pain had reduced from 10/10 to 0/10.",
+                        "For Parampreet, this became a powerful experience of understanding how deeply our emotional experiences can influence the way we experience ourselves.",
+                        "✨ <strong>Her biggest transformation:</strong> She came into the session carrying intense pain and emotional burden — and left feeling lighter, relieved and free."
+                    ]
+                },
+                "pratiksha": {
+                    title: "From Losing Her Daughter's Memories to Getting Them Back",
+                    author: "Pratiksha",
+                    role: "Verified Client Case",
+                    category: "Miraculous Recovery & Faith",
+                    pdf: "./assets/Pratiksha.pdf",
+                    paragraphs: [
+                        "Pratiksha came to me after losing her phone. But what truly broke her heart wasn't the loss of the device — it was the thought of losing all the precious photographs and memories of her daughter stored inside it. Those pictures were irreplaceable memories, and she was deeply emotional about losing them.",
+                        "During our sessions, she began shifting her emotional state from fear, sadness and helplessness to hope and belief. And then something that felt almost magical happened — she was able to recover all the photographs of her daughter. ❤️",
+                        "But her story didn't end there. A few days later, she received an unexpected call from the Cyber Crime Department, and she eventually got her lost phone back as well.",
+                        "The experience became more than just recovering a phone and photographs. It gave Pratiksha a renewed sense of hope and also motivated her to start taking greater care of her health and overall well-being.",
+                        "✨ <strong>Her biggest transformation:</strong> What began with the pain of losing something deeply precious ended with her recovering not only her daughter's memories and her phone, but also a renewed belief in herself and her ability to move forward."
+                    ]
+                },
+                "shrishti": {
+                    title: "From Money Being Stuck to Receiving It in Just 3 Days",
+                    author: "Shrishti",
+                    role: "Verified Client Case",
+                    category: "Abundance & Financial Flow",
+                    pdf: "./assets/Shrishti.pdf",
+                    paragraphs: [
+                        "Shrishti came to me with money that had been stuck for a long time. It wasn't simply about not having enough money in her account — the money that was already due to her was not reaching her.",
+                        "We worked on identifying and releasing the emotional blocks, fears and limiting beliefs she was carrying around money. The focus was on shifting her relationship with money from resistance and uncertainty towards greater trust, openness and abundance.",
+                        "And then came her breakthrough. ✨ Within just 3 days of the session, she received the money that had been stuck for so long.",
+                        "For Shrishti, this became a powerful reminder to look beyond the external situation and become aware of the internal beliefs and emotions that may be influencing how she experiences money.",
+                        "✨ <strong>Her biggest transformation:</strong> She went from feeling that her money was stuck with no movement in sight to experiencing the release of money she had been waiting for."
+                    ]
+                },
+                "yashvi": {
+                    title: "From 84% and Hopelessness to Her Dream College",
+                    author: "Yashvi",
+                    role: "Verified Client Case",
+                    category: "Student Mindset & Admissions",
+                    pdf: "./assets/Yashvi.pdf",
+                    paragraphs: [
+                        "Yashvi came to me at a time when she felt completely shattered. She had scored 84% and wanted to pursue IT, but the merit list for the course had closed at 87%. To make things even more difficult, she had applied to only one college — the very college she dreamed of attending.",
+                        "With the admission possibility seemingly out of reach, she had lost hope and was struggling to believe that things could still work out.",
+                        "Through our session, we worked on shifting her emotional state from fear, disappointment and hopelessness to hope, belief and trust. She began believing in herself again and opened herself to the possibility that there could be another way.",
+                        "And then came the unexpected! She received a call from the college asking her to come in on a Sunday — a weekend — to discuss her admission.",
+                        "What happened next felt nothing short of magical. ✨ Yashvi got admission into the college she had always dreamed of, for the exact course she wanted to pursue.",
+                        "✨ <strong>Her biggest transformation:</strong> She came in believing “It's impossible” and walked away believing “Maybe it is possible for me.” And that shift in belief changed everything."
+                    ]
+                },
+                "prashant": {
+                    title: "From a Broken Relationship to Unconditional Self-Love",
+                    author: "Prashant",
+                    role: "Verified Client Case",
+                    category: "Self-Love, Thesis & PhD",
+                    pdf: "./assets/Prashant.pdf",
+                    paragraphs: [
+                        "When Prashant joined me, he was going through a difficult phase in his life. A broken relationship had deeply affected him, and he had stopped accepting and loving himself. This inner struggle was beginning to reflect across different areas of his life.",
+                        "For a long time, he had also been trying to get his thesis accepted by a university, but despite his efforts, things simply weren't working out. The repeated rejections had left him frustrated and disheartened.",
+                        "Our journey began with something much deeper than achieving an external goal — we worked on self-acceptance, self-worth and unconditional self-love.",
+                        "As Prashant began changing the way he saw himself, his entire outlook started shifting. He moved from seeking validation outside himself to developing a stronger sense of acceptance and belief within.",
+                        "And then came an incredible series of breakthroughs. ✨ The thesis he had struggled to get accepted for so long was eventually accepted by more than five universities, including international universities and two of India's top universities. What made the journey even more remarkable was that one of the universities went a step further and offered him an opportunity to pursue his PhD with them.",
+                        "✨ <strong>His biggest transformation:</strong> He came in feeling broken, rejected and disconnected from himself. He walked out with a renewed sense of self-worth, unconditional self-love and opportunities that he had been struggling to create for years."
+                    ]
+                },
+                "manisha": {
+                    title: "From Fear & Guilt to Self-Love and Transformation",
+                    author: "Manisha",
+                    role: "Verified Client Case",
+                    category: "Sacral Chakra & Self-Love",
+                    pdf: "./assets/Manisha.pdf",
+                    paragraphs: [
+                        "When Manisha joined me, she was going through recurring UTI and period-related concerns. As we worked together, she began looking beyond the physical symptoms and became aware of deeper emotional patterns of fear and guilt that were influencing how she felt about herself and her life.",
+                        "Through our sessions, she connected these patterns with her sacral chakra and emotional energy, and began consciously releasing limiting beliefs, practising self-love and creating a healthier relationship with herself.",
+                        "Her transformation went far beyond what she initially came in for. As she started loving and accepting herself more deeply, she noticed positive changes across different areas of her life — including her well-being, relationships and career.",
+                        "✨ <strong>Her biggest transformation:</strong> She didn't just learn to work on her outer circumstances — she discovered that changing the way she felt about herself could change the way she experienced her entire life."
+                    ]
+                },
+                "shraddha": {
+                    title: "From “Something Is Missing” to Discovering Her Calling",
+                    author: "Shraddha",
+                    role: "Verified Client Case",
+                    category: "Life Calling & Dance Healing at 48",
+                    pdf: "./assets/Shraddha.pdf",
+                    paragraphs: [
+                        "After spending more than 20 years working with a renowned organisation, Shraddha had built a successful professional life. Yet, despite everything she had accomplished, she felt that something was missing. There was an emptiness she couldn't quite explain.",
+                        "Through our sessions, we worked together on gaining clarity, listening to her inner voice and understanding what truly made her heart happy.",
+                        "And she discovered something beautiful — her heart belonged to dance. 💃✨ Instead of dismissing that desire or telling herself that it was too late, she chose to follow it.",
+                        "At the age of 48, she enrolled herself in a dance healing academy and began pursuing professional education in dance. She also started attending weekend academy sessions and is now on a journey towards using dance as a medium to help and heal others.",
+                        "✨ <strong>Her biggest transformation:</strong> She went from “Something is missing from my life” to “I know what my heart wants, and I'm finally choosing to follow it.”"
+                    ]
+                }
+            };
+
+            const storyModalEl = document.getElementById("storyDetailModal");
+            if (storyModalEl && window.bootstrap) {
+                const storyModal = new bootstrap.Modal(storyModalEl);
+                const storyTitle = document.getElementById("storyDetailTitle");
+                const storyEyebrow = document.getElementById("storyDetailEyebrow");
+                const storyAuthor = document.getElementById("storyDetailAuthor");
+                const storyTag = document.getElementById("storyDetailTag");
+                const storyContent = document.getElementById("storyDetailContent");
+                const storyPdfContainer = document.getElementById("storyDetailPdfContainer");
+                const storyPdfBtn = document.getElementById("storyDetailPdfBtn");
+
+                const openStory = (storyId) => {
+                    const item = storyDatabase[storyId];
+                    if (!item) return;
+                    if (storyTitle) storyTitle.textContent = item.title;
+                    if (storyEyebrow) storyEyebrow.textContent = item.category || "Client Transformation Story";
+                    if (storyAuthor) storyAuthor.innerHTML = `<strong>${item.author}</strong>${item.role ? ` · <span>${item.role}</span>` : ''}`;
+                    if (storyTag) storyTag.textContent = item.category || "Transformation Case";
+                    
+                    if (storyContent) {
+                        storyContent.innerHTML = item.paragraphs.map(p => `<p>${p}</p>`).join('');
+                    }
+
+                    if (storyPdfContainer && storyPdfBtn) {
+                        if (item.pdf) {
+                            storyPdfContainer.hidden = false;
+                            storyPdfBtn.href = item.pdf;
+                        } else {
+                            storyPdfContainer.hidden = true;
+                        }
+                    }
+                    storyModal.show();
+                };
+
+                document.querySelectorAll("[data-story-id]").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        const sid = btn.dataset.storyId;
+                        if (sid) {
+                            e.preventDefault();
+                            openStory(sid);
+                        }
+                    });
+                });
+            }
 
             const videoModalEl = document.getElementById("videoModal");
             const videoIframe = document.getElementById("video-modal-iframe");
@@ -554,19 +831,23 @@
             /* ------------------------------------------------------------
                Newsletter: native validation and explicit email opt-in.
                ------------------------------------------------------------ */
-            $("#newsletter-form").addEventListener("submit", event => {
-                event.preventDefault();
-                const input = $("#newsletter-email");
-                if (!input.reportValidity()) return;
-                const feedback = $("#newsletter-feedback");
-                feedback.replaceChildren(document.createTextNode("One last step: "));
-                const link = document.createElement("a");
-                link.textContent = "send your subscription request";
-                link.href = `mailto:${contactEmail}?subject=${encodeURIComponent("Newsletter subscription request")}&body=${encodeURIComponent(`Hi Jaya,\n\nI’d like to receive your tips, updates, and inspiration by email.\n\nPlease subscribe: ${input.value.trim()}\n\nThank you!`)}`;
-                feedback.append(link, document.createTextNode(". You’ll join after your request is confirmed."));
-                feedback.hidden = false;
-                link.focus();
-            });
+            const newsletterForm = $("#newsletter-form");
+            if (newsletterForm) {
+                newsletterForm.addEventListener("submit", event => {
+                    event.preventDefault();
+                    const input = $("#newsletter-email");
+                    if (!input || !input.reportValidity()) return;
+                    const feedback = $("#newsletter-feedback");
+                    if (!feedback) return;
+                    feedback.replaceChildren(document.createTextNode("One last step: "));
+                    const link = document.createElement("a");
+                    link.textContent = "send your subscription request";
+                    link.href = `mailto:${contactEmail}?subject=${encodeURIComponent("Newsletter subscription request")}&body=${encodeURIComponent(`Hi Jaya,\n\nI’d like to receive your tips, updates, and inspiration by email.\n\nPlease subscribe: ${input.value.trim()}\n\nThank you!`)}`;
+                    feedback.append(link, document.createTextNode(". You’ll join after your request is confirmed."));
+                    feedback.hidden = false;
+                    link.focus();
+                });
+            }
 
             /* ------------------------------------------------------------
                Animated intro: actual playback, seek, captions, narration.
@@ -589,7 +870,8 @@
             let narrationOn = false;
             const speechAvailable = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
 
-            if (!speechAvailable) $("#intro-narration").hidden = true;
+            const narrationBtn = $("#intro-narration");
+            if (!speechAvailable && narrationBtn) narrationBtn.hidden = true;
 
             function speakSegment(index) {
                 if (!speechAvailable || !narrationOn || !introPlaying) return;
@@ -608,17 +890,25 @@
                 if (segment !== introSegment) {
                     introSegment = segment;
                     const caption = $("#intro-caption");
-                    caption.textContent = introSegments[segment].title;
-                    caption.classList.remove("is-entering");
-                    void caption.offsetWidth;
-                    caption.classList.add("is-entering");
+                    if (caption) {
+                        caption.textContent = introSegments[segment].title;
+                        caption.classList.remove("is-entering");
+                        void caption.offsetWidth;
+                        caption.classList.add("is-entering");
+                    }
                     speakSegment(segment);
                 }
-                $("#intro-progress").value = introElapsed;
-                $("#intro-time").textContent = `0:${String(Math.floor(introElapsed)).padStart(2, "0")} / 0:40`;
-                $("#intro-progress").setAttribute("aria-valuetext", `${Math.floor(introElapsed)} of 40 seconds`);
-                $("#intro-play-icon").setAttribute("href", introPlaying ? "#i-pause" : "#i-play");
-                $("#intro-play").setAttribute("aria-label", introPlaying ? "Pause introduction" : introElapsed >= introDuration ? "Replay introduction" : "Play introduction");
+                const introProg = $("#intro-progress");
+                if (introProg) {
+                    introProg.value = introElapsed;
+                    introProg.setAttribute("aria-valuetext", `${Math.floor(introElapsed)} of 40 seconds`);
+                }
+                const introTime = $("#intro-time");
+                if (introTime) introTime.textContent = `0:${String(Math.floor(introElapsed)).padStart(2, "0")} / 0:40`;
+                const introPlayIcon = $("#intro-play-icon");
+                if (introPlayIcon) introPlayIcon.setAttribute("href", introPlaying ? "#i-pause" : "#i-play");
+                const introPlayBtn = $("#intro-play");
+                if (introPlayBtn) introPlayBtn.setAttribute("aria-label", introPlaying ? "Pause introduction" : introElapsed >= introDuration ? "Replay introduction" : "Play introduction");
             }
 
             function pauseIntro() {
@@ -650,28 +940,37 @@
                 introFrame = requestAnimationFrame(introTick);
             }
 
-            $("#intro-play").addEventListener("click", () => introPlaying ? pauseIntro() : playIntro());
-            $("#intro-progress").addEventListener("input", event => {
-                introElapsed = Number(event.target.value);
-                introLastFrame = 0;
-                introSegment = -1;
-                updateIntro();
-                if (introElapsed >= introDuration) pauseIntro();
-            });
-            $("#intro-narration").addEventListener("click", () => {
-                narrationOn = !narrationOn;
-                $("#intro-narration").setAttribute("aria-pressed", String(narrationOn));
-                $("#intro-narration").textContent = narrationOn ? "Narration on" : "Narration off";
-                if (narrationOn) speakSegment(Math.max(0, introSegment));
-                else if (speechAvailable) window.speechSynthesis.cancel();
-            });
-            introElement.addEventListener("shown.bs.modal", () => {
-                introElapsed = 0;
-                introSegment = -1;
-                if (!reducedMotion) playIntro();
-                else updateIntro();
-            });
-            introElement.addEventListener("hide.bs.modal", pauseIntro);
+            const introPlayBtn = $("#intro-play");
+            if (introPlayBtn) introPlayBtn.addEventListener("click", () => introPlaying ? pauseIntro() : playIntro());
+            const introProgress = $("#intro-progress");
+            if (introProgress) {
+                introProgress.addEventListener("input", event => {
+                    introElapsed = Number(event.target.value);
+                    introLastFrame = 0;
+                    introSegment = -1;
+                    updateIntro();
+                    if (introElapsed >= introDuration) pauseIntro();
+                });
+            }
+            const introNarration = $("#intro-narration");
+            if (introNarration) {
+                introNarration.addEventListener("click", () => {
+                    narrationOn = !narrationOn;
+                    introNarration.setAttribute("aria-pressed", String(narrationOn));
+                    introNarration.textContent = narrationOn ? "Narration on" : "Narration off";
+                    if (narrationOn) speakSegment(Math.max(0, introSegment));
+                    else if (speechAvailable) window.speechSynthesis.cancel();
+                });
+            }
+            if (introElement) {
+                introElement.addEventListener("shown.bs.modal", () => {
+                    introElapsed = 0;
+                    introSegment = -1;
+                    if (!reducedMotion) playIntro();
+                    else updateIntro();
+                });
+                introElement.addEventListener("hide.bs.modal", pauseIntro);
+            }
             document.addEventListener("visibilitychange", () => {
                 if (document.hidden && introPlaying) pauseIntro();
             });
